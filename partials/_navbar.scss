@@ -1,0 +1,39 @@
+#main-header {
+  .divisor {
+    width: 100vw;
+    height: 0.3125rem;
+    background-color: var(--main-color);
+  }
+  .barra {
+    margin: 1.8rem 6vw;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  #menu {
+    background-color: var(--main-color);
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    li {
+      height: 1.88rem;
+      line-height: 1.88rem;
+    }
+    a {
+      color: #fff;
+    }
+  }
+  .separador {
+    display: flex;
+    align-items: center;
+    height: 1.88rem;
+    width: 2.56rem;
+    .separador-menu {
+      width: 100%;
+      border-top: 1px solid white;
+      background-color: white;
+      opacity: 0.5;
+    }
+  }
+}
