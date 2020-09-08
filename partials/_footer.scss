@@ -1,0 +1,29 @@
+#main_footer{
+    #face-icon, #tw-icon, #ig-icon{
+        display: inline-block;
+    }
+    #face-icon{
+        width: 8px;
+        height: 17px;
+        background: url("assets/icon-facebook.svg") no-repeat;
+        &:hover{
+            background-image: url("assets/icon-facebook-hover.svg");
+        }
+    }
+    #tw-icon{
+        width: 18px;
+        height: 17px;
+        background: url("assets/icon-twitter.svg") no-repeat;
+        &:hover{
+            background-image: url("assets/icon-twitter-hover.svg");
+        }
+    }
+    #ig-icon{
+        width: 18px;
+        height: 18px;
+        background: url("assets/icon-instagram.svg") no-repeat;
+        &:hover{
+            background-image: url("assets/icon-instagram-hover.svg");
+        }
+    }
+}

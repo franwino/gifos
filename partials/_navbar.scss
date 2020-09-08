@@ -4,36 +4,102 @@
     height: 0.3125rem;
     background-color: var(--main-color);
   }
+  #navbar {
+    display: flex;
+    flex-direction: column;
+  }
+  #crear_gifos {
+    display: none;
+  }
   .barra {
-    margin: 1.8rem 6vw;
-    margin-bottom: 1rem;
+    padding: 1.8125rem 0 1.0625rem;
     display: flex;
     justify-content: space-between;
   }
-  #menu {
-    background-color: var(--main-color);
+  .logo {
+    padding-left: 5.9vw;
+  }
+  #btn-burger {
+    padding-right: 7.2vw;
+  }
+  .menu_list {
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
+    display: none;
     align-items: center;
+    font-family: $font-mont;
+    font-size: 0.9375rem;
+    font-weight: bold;
+  }
+  .open {
     li {
-      height: 1.88rem;
-      line-height: 1.88rem;
+      line-height: 1.875rem;
+      &:first-child {
+        margin-top: 2rem;
+      }
     }
     a {
       color: #fff;
     }
-  }
-  .separador {
+    height: calc(100% - 6.25rem);
+    background-color: var(--main-color);
+    opacity: 0.9;
     display: flex;
-    align-items: center;
-    height: 1.88rem;
+    flex-direction: column;
+    width: 100vw;
+    position: absolute;
+    top: 6.25rem;
+  }
+  .separador-menu {
+    height: 1px;
     width: 2.56rem;
+    border-top: 1px solid white;
+    border-bottom: 0;
+    background-color: white;
+    opacity: 0.5;
+    margin: 0.6875rem auto 0.875rem;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  #main-header {
+    #btn-burger,
     .separador-menu {
-      width: 100%;
-      border-top: 1px solid white;
-      background-color: white;
-      opacity: 0.5;
+      display: none;
+    }
+    #crear_gifos {
+      display: inline;
+    }
+    #navbar {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .barra {
+      padding: 0;
+      display: inline;
+    }
+    .logo {
+      width: 59.1px;
+      height: 59.1px;
+      padding: 0;
+      margin: 18px 0 12.9px 10.8vw;
+    }
+    .menu_list {
+      width: 30vw;
+      margin-right: 10.8vw;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      line-height: 1rem;
+      text-transform: uppercase;
+      li {
+        text-align: center;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+      a {
+        color: var(--main-color);
+      }
     }
   }
 }

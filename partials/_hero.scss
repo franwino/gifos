@@ -1,0 +1,37 @@
+.inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1,
+  h1 > span {
+    font-family: $font-mont;
+    font-size: 1.5625rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  h1 {
+    margin: 0.5rem 12vw 2rem;
+  }
+}
+
+.color1 {
+    color: var(--main-color);
+  }
+  
+  .color2 {
+    color: var(--sec-color);
+  }
+  
+.img-hero {
+  max-width: 72.8vw;
+}
+
+.search_bar{
+    margin: 0 5.6vw 2rem 5.3vw;
+    input{
+        border: 1px solid var(--main-color);
+        border-radius: 27px;
+        height: 50px;
+        padding: 15px 64px 13px 55px;
+    }
+}
