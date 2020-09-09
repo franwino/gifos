@@ -1,6 +1,7 @@
 $main-color-light: #572ee5;
 $main-color-dark: #ffffff;
 $sec-color-light: #5ed7c6;
+$bg-trending-light: #F3F5F8;
 $font-mont: "Montserrat", sans-serif;
 $font-roboto: "Roboto", sans-serif;
 
@@ -9,6 +10,7 @@ $desktop: 768px;
 :root {
   --main-color: #{$main-color-light};
   --sec-color: #{$sec-color-light};
+  --bg-trending: #{$bg-trending-light};
 }
 
 * {
@@ -31,7 +33,8 @@ a {
   text-decoration: none;
 }
 
-/* TODO - hacer responsive las imagenes */
-img {
-  max-width: 300px;
+.barra-inicio-fin {
+  width: 100%;
+  height: 0.3125rem;
+  background-color: var(--main-color);
 }

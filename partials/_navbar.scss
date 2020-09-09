@@ -1,9 +1,4 @@
 #main-header {
-  .divisor {
-    width: 100vw;
-    height: 0.3125rem;
-    background-color: var(--main-color);
-  }
   #navbar {
     display: flex;
     flex-direction: column;
@@ -40,13 +35,13 @@
     a {
       color: #fff;
     }
-    height: calc(100% - 6.25rem);
+    height: calc(100vh - 6.25rem);
     background-color: var(--main-color);
     opacity: 0.9;
     display: flex;
     flex-direction: column;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     top: 6.25rem;
   }
   .separador-menu {
@@ -60,7 +55,7 @@
   }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: $desktop) {
   #main-header {
     #btn-burger,
     .separador-menu {

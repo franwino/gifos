@@ -1,4 +1,13 @@
 #main_footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 47px;
+    .compartir{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     #face-icon, #tw-icon, #ig-icon{
         display: inline-block;
     }
