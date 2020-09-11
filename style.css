@@ -254,6 +254,7 @@ a {
 .trending_themes p {
   font-size: 0.875rem;
   font-weight: medium;
+  text-transform: capitalize;
 }
 
 .trending {
@@ -314,6 +315,7 @@ a {
 }
 
 #main_footer {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -325,22 +327,36 @@ a {
       -ms-flex-align: center;
           align-items: center;
   padding-top: 47px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
 }
 
 #main_footer .compartir {
+  line-height: 1.125rem;
+  font-size: 0.9375rem;
+}
+
+#main_footer .icons {
+  width: 25vw;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-#main_footer #face-icon, #main_footer #tw-icon, #main_footer #ig-icon {
+#main_footer .copyright {
+  margin-bottom: 1.5rem;
+  line-height: 1.25rem;
+  font-size: 0.875rem;
+}
+
+#main_footer #face-icon,
+#main_footer #tw-icon,
+#main_footer #ig-icon {
   display: inline-block;
 }
 
@@ -372,5 +388,27 @@ a {
 
 #main_footer #ig-icon:hover {
   background-image: url("assets/icon-instagram-hover.svg");
+}
+
+@media screen and (min-width: 768px) {
+  #main_footer {
+    padding: 3.125rem 10.9vw;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  #main_footer .compartir,
+  #main_footer .copyright {
+    font-size: 0.8125rem;
+  }
+  #main_footer .icons {
+    margin: 0 51vw 0 1.2vw;
+    width: 6.6vw;
+  }
+  #main_footer .copyright {
+    line-height: 1.125rem;
+    margin: 0;
+  }
 }
 /*# sourceMappingURL=style.css.map */

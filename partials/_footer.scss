@@ -1,38 +1,73 @@
-#main_footer{
+#main_footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 47px;
+  font-family: $font-roboto;
+  font-weight: 400;
+  .compartir {
+    line-height: 1.125rem;
+    font-size: 0.9375rem;
+  }
+  .icons {
+    width: 25vw;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 47px;
-    .compartir{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    justify-content: space-between;
+  }
+  .copyright {
+    margin-bottom: 1.5rem;
+    line-height: 1.25rem;
+    font-size: 0.875rem;
+  }
+  #face-icon,
+  #tw-icon,
+  #ig-icon {
+    display: inline-block;
+  }
+  #face-icon {
+    width: 8px;
+    height: 17px;
+    background: url("assets/icon-facebook.svg") no-repeat;
+    &:hover {
+      background-image: url("assets/icon-facebook-hover.svg");
     }
-    #face-icon, #tw-icon, #ig-icon{
-        display: inline-block;
+  }
+  #tw-icon {
+    width: 18px;
+    height: 17px;
+    background: url("assets/icon-twitter.svg") no-repeat;
+    &:hover {
+      background-image: url("assets/icon-twitter-hover.svg");
     }
-    #face-icon{
-        width: 8px;
-        height: 17px;
-        background: url("assets/icon-facebook.svg") no-repeat;
-        &:hover{
-            background-image: url("assets/icon-facebook-hover.svg");
-        }
+  }
+  #ig-icon {
+    width: 18px;
+    height: 18px;
+    background: url("assets/icon-instagram.svg") no-repeat;
+    &:hover {
+      background-image: url("assets/icon-instagram-hover.svg");
     }
-    #tw-icon{
-        width: 18px;
-        height: 17px;
-        background: url("assets/icon-twitter.svg") no-repeat;
-        &:hover{
-            background-image: url("assets/icon-twitter-hover.svg");
-        }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  #main_footer {
+    padding: 3.125rem 10.9vw;
+    flex-direction: row;
+    .compartir,
+    .copyright {
+      font-size: 0.8125rem;
     }
-    #ig-icon{
-        width: 18px;
-        height: 18px;
-        background: url("assets/icon-instagram.svg") no-repeat;
-        &:hover{
-            background-image: url("assets/icon-instagram-hover.svg");
-        }
+    .icons {
+      margin: 0 51vw 0 1.2vw;
+      width: 6.6vw;
     }
+    .copyright {
+      line-height: 1.125rem;
+      margin: 0;
+    }
+  }
 }
