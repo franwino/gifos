@@ -76,7 +76,7 @@ function search() {
   const input = document.getElementById("search");
   function autoComplete(query) {
     const url =
-      "http://api.giphy.com/v1/gifs/search/tags" + apikey + "&q=" + query;
+      "https://api.giphy.com/v1/gifs/search/tags" + apikey + "&q=" + query;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -104,7 +104,7 @@ function search() {
     const query = document.getElementById("search").value;
     const limit = 12;
     const url =
-      "http://api.giphy.com/v1/gifs/search" +
+      "https://api.giphy.com/v1/gifs/search" +
       apikey +
       "&q=" +
       query +
@@ -138,7 +138,7 @@ search();
 
 /* Trending Searchs */
 function trendingSearchs() {
-  const url = "http://api.giphy.com/v1/trending/searches" + apikey;
+  const url = "https://api.giphy.com/v1/trending/searches" + apikey;
 
   fetch(url)
     .then((response) => response.json())
@@ -161,7 +161,7 @@ trendingSearchs();
 
 /* Trending GIFs */
 function trendingGifs() {
-  const url = "http://api.giphy.com/v1/gifs/trending" + apikey + "&limit=3";
+  const url = "https://api.giphy.com/v1/gifs/trending" + apikey + "&limit=3";
 
   fetch(url)
     .then((response) => response.json())
