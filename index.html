@@ -28,7 +28,7 @@
       </div>
       <ul class="menu_list" id="menu">
         <li>
-          <a href="" id="btnDarkMode" >Modo Nocturno</a>
+          <a href="" id="btnDarkMode">Modo Nocturno</a>
           <hr class="separador-menu" />
         </li>
         <li>
@@ -55,10 +55,13 @@
         <span class="color2">GIFOS</span>
       </h1>
       <img src="assets/ilustra_header.svg" alt="img saludo" class="img-hero" />
-      <section class="search_bar">
-        <img src="assets/icon-search.svg" alt="buscar" />
-        <input type="text" name="search" id="search" placeholder="Busca GIFOS y más" />
-        <img src="assets/icon-search.svg" alt="buscar" />
+      <section class="busqueda">
+        <div class="search_bar">
+          <img src="assets/icon-search.svg" alt="buscar" />
+          <input type="text" name="search" id="search" placeholder="Busca GIFOS y más" />
+          <img src="assets/icon-search.svg" alt="buscar" id="buscar"/>
+        </div>
+        <ul id="autocomplete"></ul>
       </section>
       <section class="trending_themes">
         <h2>Trending:</h2>
@@ -70,7 +73,7 @@
     <!-- Resultados de la busqueda -->
     <section class="busqueda hidden">
       <h1 id="titulo-busqueda"></h1>
-      <div class="grilla-rdo"></div>
+      <div id="grilla-rdo"></div>
       <button class="ver-mas">VER MÁS</button>
     </section>
 
