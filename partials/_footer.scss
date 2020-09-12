@@ -6,6 +6,9 @@
   padding-top: 47px;
   font-family: $font-roboto;
   font-weight: 400;
+  p{
+    color: var(--main-color-2);
+  }
   .compartir {
     line-height: 1.125rem;
     font-size: 0.9375rem;

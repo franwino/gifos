@@ -28,15 +28,15 @@
       </div>
       <ul class="menu_list" id="menu">
         <li>
-          <a href="">Modo Nocturno</a>
+          <a href="" id="btnDarkMode" >Modo Nocturno</a>
           <hr class="separador-menu" />
         </li>
         <li>
-          <a href="">Favoritos</a>
+          <a href="" id="btnFav">Favoritos</a>
           <hr class="separador-menu" />
         </li>
         <li>
-          <a href="">Mis GIFOS</a>
+          <a href="" id="btnMis">Mis GIFOS</a>
           <hr class="separador-menu" />
         </li>
         <li>
@@ -56,15 +56,22 @@
       </h1>
       <img src="assets/ilustra_header.svg" alt="img saludo" class="img-hero" />
       <section class="search_bar">
+        <img src="assets/icon-search.svg" alt="buscar" />
         <input type="text" name="search" id="search" placeholder="Busca GIFOS y más" />
         <img src="assets/icon-search.svg" alt="buscar" />
       </section>
       <section class="trending_themes">
         <h2>Trending:</h2>
         <p id="text-trends">
-          reactions, entertainment, sports, stickers, Artists
         </p>
       </section>
+    </section>
+
+    <!-- Resultados de la busqueda -->
+    <section class="busqueda hidden">
+      <h1 id="titulo-busqueda"></h1>
+      <div class="grilla-rdo"></div>
+      <button class="ver-mas">VER MÁS</button>
     </section>
 
     <!-- Trending gifs -->

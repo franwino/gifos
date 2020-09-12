@@ -1,7 +1,10 @@
 :root {
   --main-color: #572ee5;
+  --main-color-bg: #572ee5;
+  --main-color-2: 0;
   --sec-color: #5ed7c6;
   --bg-trending: #F3F5F8;
+  --bg-color: ffffff;
 }
 
 * {
@@ -15,19 +18,28 @@ html {
   font-size: 16px;
 }
 
+body {
+  background-color: var(--bg-color);
+}
+
 /* Clase para ocultar el contenido */
-/* .hidden {
+.hidden {
   visibility: hidden;
-} */
+}
+
 a {
   color: var(--main-color);
   text-decoration: none;
 }
 
+p {
+  color: var(--main-color);
+}
+
 .barra-inicio-fin {
   width: 100%;
   height: 0.3125rem;
-  background-color: var(--main-color);
+  background-color: var(--main-color-bg);
 }
 
 #main-header #navbar {
@@ -75,7 +87,7 @@ a {
 
 #main-header .open {
   height: calc(100vh - 6.25rem);
-  background-color: var(--main-color);
+  background-color: var(--main-color-bg);
   opacity: 0.9;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -196,9 +208,25 @@ a {
   border: none;
   width: 100%;
   height: 22px;
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem;
+  font: 400 1rem "Roboto", sans-serif;
+  background-color: var(--bg-color);
   line-height: 1.1875rem;
+}
+
+.search_bar input::-webkit-input-placeholder {
+  color: #6B7989;
+}
+
+.search_bar input:-ms-input-placeholder {
+  color: #6B7989;
+}
+
+.search_bar input::-ms-input-placeholder {
+  color: #6B7989;
+}
+
+.search_bar input::placeholder {
+  color: #6B7989;
 }
 
 .inicio {
@@ -286,6 +314,7 @@ a {
 }
 
 .trending .subtext p {
+  color: var(--main-color-2);
   display: inline-block;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
@@ -329,6 +358,10 @@ a {
   padding-top: 47px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
+}
+
+#main_footer p {
+  color: var(--main-color-2);
 }
 
 #main_footer .compartir {
