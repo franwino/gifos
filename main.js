@@ -55,11 +55,11 @@ function misGifos() {
 }
 misGifos();
 
+
 /* Funcionamiento menu hamburguesa */
 function menuHamburguesa() {
   const burger = document.getElementById("btn-burger");
   burger.addEventListener("click", (e) => {
-    const menu = document.getElementById("menu");
     e.preventDefault();
     menu.classList.toggle("open");
     if (!menu.classList.contains("open")) {

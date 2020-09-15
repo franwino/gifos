@@ -17,10 +17,11 @@
 
 <body>
   <!-- Barra de navegacion -->
-  <div class="barra-inicio-fin"></div>
-  <header id="main-header">
+
+  <header id="main-header" class="fixed">
+    <div class="barra-inicio-fin" id="barra-inicio"></div>
     <nav id="navbar">
-      <div class="barra">
+      <div class="barra" id="barra">
         <picture>
           <source srcset="assets/logo-desktop.svg" media="(min-width:768px)" />
           <img src="assets/logo-mobile.svg" alt="logo" class="logo" /></picture>
@@ -47,7 +48,7 @@
   </header>
 
   <!-- Cuerpo del sitio -->
-  <main>
+  <main id="cuerpo">
     <!-- Seccion principal -->
     <section class="inicio">
       <h1 class="color1">

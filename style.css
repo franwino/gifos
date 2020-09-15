@@ -3,7 +3,7 @@
   --main-color-bg: #572ee5;
   --main-color-2: 0;
   --sec-color: #5ed7c6;
-  --bg-trending: #F3F5F8;
+  --bg-trending: #f3f5f8;
   --bg-color: ffffff;
 }
 
@@ -25,6 +25,13 @@ body {
 /* Clase para ocultar el contenido */
 .hidden {
   visibility: hidden;
+}
+
+.fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 a {
@@ -50,6 +57,7 @@ p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  background-color: var(--bg-color);
 }
 
 #main-header #crear_gifos {
@@ -180,6 +188,10 @@ p {
 
 .color2 {
   color: var(--sec-color);
+}
+
+#cuerpo {
+  margin-top: 94px;
 }
 
 .img-hero {
