@@ -27,6 +27,14 @@
     font-weight: bold;
   }
   .open {
+    height: calc(100vh - 6.25rem);
+    background-color: var(--main-color-bg);
+    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    position: fixed;
+    top: 6.5rem;
     li {
       line-height: 1.875rem;
       &:first-child {
@@ -36,14 +44,9 @@
     a {
       color: #fff;
     }
-    height: calc(100vh - 6.25rem);
-    background-color: var(--main-color-bg);
-    opacity: 0.9;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    position: fixed;
-    top: 6.25rem;
+    &.dark{
+      opacity: 1;
+    }
   }
   .separador-menu {
     height: 1px;

@@ -7,6 +7,8 @@ function modoNocturno() {
   function setColor(vble, color) {
     document.documentElement.style.setProperty(vble, color);
   }
+  const icons = document.getElementsByClassName("icon");
+
   function toggleMode(mode) {
     if (mode == false) {
       setColor("--main-color", "#ffffff");
@@ -14,6 +16,11 @@ function modoNocturno() {
       setColor("--main-color-2", "#ffffff");
       setColor("--bg-color", "#37383C");
       setColor("--bg-trending", "#222326");
+      btn.innerText = "Modo Diurno";
+      menu.classList.add("dark");
+      for (const icon of icons) {
+        icon.classList.add("dark");
+      }
       newMode = true;
     } else {
       setColor("--main-color", " #572ee5");
@@ -21,6 +28,11 @@ function modoNocturno() {
       setColor("--main-color-2", "#000000");
       setColor("--bg-color", "#ffffff");
       setColor("--bg-trending", "#F3F5F8");
+      btn.innerText = "Modo Nocturno";
+      menu.classList.remove("dark");
+      for (const icon of icons) {
+        icon.classList.remove("dark");
+      }
       newMode = false;
     }
     return newMode;
@@ -55,17 +67,16 @@ function misGifos() {
 }
 misGifos();
 
-
 /* Funcionamiento menu hamburguesa */
 function menuHamburguesa() {
   const burger = document.getElementById("btn-burger");
   burger.addEventListener("click", (e) => {
     e.preventDefault();
     menu.classList.toggle("open");
-    if (!menu.classList.contains("open")) {
-      burger.setAttribute("src", "assets/burger.svg");
-    } else {
+    if (menu.classList.contains("open")) {
       burger.setAttribute("src", "assets/close.svg");
+    } else {
+      burger.setAttribute("src", "assets/burger.svg");
     }
   });
 }
@@ -81,12 +92,19 @@ function search() {
       .then((response) => response.json())
       .then((data) => {
         let n = Math.min(data.data.length, 4);
-        const ul = document.getElementById("autocomplete");
-        ul.innerHTML = "";
+        const lista = document.getElementById("autocomplete");
+        lista.innerHTML = "";
         for (let i = 0; i < n; i++) {
-          const el = document.createElement("li");
+          const img = document.createElement("img");
+          img.src = "assets/icon-search.svg";
+          img.className = "f-gris";
+          const el = document.createElement("p");
           el.innerText = data.data[i].name;
-          ul.appendChild(el);
+          const container = document.createElement("div");
+          container.className = "autocomplete-field";
+          container.appendChild(img);
+          container.appendChild(el);
+          lista.appendChild(container);
         }
       })
       .catch((error) => console.log("error:", error));
@@ -97,6 +115,8 @@ function search() {
   });
   const btnBuscar = document.getElementById("buscar");
   btnBuscar.addEventListener("click", (e) => {
+    const section = document.getElementById("rdo-busqueda");
+    section.innerText = "";
     doSearch();
   });
   function doSearch() {
@@ -114,10 +134,16 @@ function search() {
       offset;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => createElement(data))
+      .then((data) => renderGrilla(data))
       .catch((error) => console.log("error:", error));
 
-    function createElement(data) {
+    function renderGrilla(data) {
+      const section = document.getElementById("rdo-busqueda");
+      const title = document.createElement("h2");
+      title.innerText = query;
+      section.appendChild(title);
+      const grilla = document.createElement("div");
+      grilla.className = "grilla-rdo";
       data.data.forEach((gif) => {
         const el = document.createElement("img");
         el.src = gif.images.downsized.url;
@@ -127,10 +153,13 @@ function search() {
         const cont = document.createElement("div");
         cont.className = "gif-container";
         cont.appendChild(el);
-        document.getElementById("grilla-rdo").appendChild(cont);
+        grilla.appendChild(cont);
       });
-      const section = document.getElementsByClassName("busqueda");
-      section[1].classList.toggle("hidden");
+      section.appendChild(grilla);
+      const btn = document.createElement("button");
+      btn.className = "ver-mas";
+      btn.innerText = "VER MÁS";
+      section.appendChild(btn);
     }
   }
 }

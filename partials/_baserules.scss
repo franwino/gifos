@@ -16,6 +16,13 @@ $desktop: 768px;
   --bg-color: #{ffffff};
 }
 
+
+// Filtro para modificar el color de img svg
+.f-gris{
+  filter: brightness(0) saturate(100%) invert(77%) sepia(18%) saturate(330%) hue-rotate(170deg) brightness(87%) contrast(89%);
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -32,6 +39,10 @@ body {
 
 /* Clase para ocultar el contenido */
 .hidden {
+  display: none;
+}
+
+.invisible{
   visibility: hidden;
 }
 

@@ -25,9 +25,7 @@
     line-height: 1.25rem;
     font-size: 0.875rem;
   }
-  #face-icon,
-  #tw-icon,
-  #ig-icon {
+  .icon {
     display: inline-block;
   }
   #face-icon {
@@ -37,6 +35,9 @@
     &:hover {
       background-image: url("assets/icon-facebook-hover.svg");
     }
+    &.dark:hover{
+      background-image: url("assets/icon-facebook-noc.svg");
+    }
   }
   #tw-icon {
     width: 18px;
@@ -45,6 +46,9 @@
     &:hover {
       background-image: url("assets/icon-twitter-hover.svg");
     }
+    &.dark:hover{
+      background-image: url("assets/icon-twitter-noc.svg");
+    }
   }
   #ig-icon {
     width: 18px;
@@ -52,6 +56,9 @@
     background: url("assets/icon-instagram.svg") no-repeat;
     &:hover {
       background-image: url("assets/icon-instagram-hover.svg");
+    }
+    &.dark:hover{
+      background-image: url("assets/icon-instagram-noc.svg");
     }
   }
 }

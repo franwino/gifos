@@ -1,114 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GIFOS</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- <script
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GIFOS</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script
       src="https://kit.fontawesome.com/2e0e0eb40e.js"
       crossorigin="anonymous"
     ></script> -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
-    rel="stylesheet" />
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-  <!-- Barra de navegacion -->
+  <body>
+    <!-- Barra de navegacion -->
 
-  <header id="main-header" class="fixed">
-    <div class="barra-inicio-fin" id="barra-inicio"></div>
-    <nav id="navbar">
-      <div class="barra" id="barra">
-        <picture>
-          <source srcset="assets/logo-desktop.svg" media="(min-width:768px)" />
-          <img src="assets/logo-mobile.svg" alt="logo" class="logo" /></picture>
-        <img src="assets/burger.svg" alt="abrir menu" id="btn-burger" />
-      </div>
-      <ul class="menu_list" id="menu">
-        <li>
-          <a href="" id="btnDarkMode">Modo Nocturno</a>
-          <hr class="separador-menu" />
-        </li>
-        <li>
-          <a href="" id="btnFav">Favoritos</a>
-          <hr class="separador-menu" />
-        </li>
-        <li>
-          <a href="" id="btnMis">Mis GIFOS</a>
-          <hr class="separador-menu" />
-        </li>
-        <li>
-          <a href=""><img src="assets/button-crear-gifo.svg" alt="crear gifos" id="crear_gifos" /></a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Cuerpo del sitio -->
-  <main id="cuerpo">
-    <!-- Seccion principal -->
-    <section class="inicio">
-      <h1 class="color1">
-        Inspírate, busca, guarda, y crea los mejores
-        <span class="color2">GIFOS</span>
-      </h1>
-      <img src="assets/ilustra_header.svg" alt="img saludo" class="img-hero" />
-      <section class="busqueda">
-        <div class="search_bar">
-          <img src="assets/icon-search.svg" alt="buscar" />
-          <input type="text" name="search" id="search" placeholder="Busca GIFOS y más" />
-          <img src="assets/icon-search.svg" alt="buscar" id="buscar"/>
+    <header id="main-header" class="fixed">
+      <div class="barra-inicio-fin" id="barra-inicio"></div>
+      <nav id="navbar">
+        <div class="barra" id="barra">
+          <picture>
+            <source
+              srcset="assets/logo-desktop.svg"
+              media="(min-width:768px)" />
+            <img src="assets/logo-mobile.svg" alt="logo" class="logo"
+          /></picture>
+          <img src="assets/burger.svg" alt="abrir menu" id="btn-burger" />
         </div>
-        <ul id="autocomplete"></ul>
+        <ul class="menu_list" id="menu">
+          <li>
+            <a href="" id="btnDarkMode">Modo Nocturno</a>
+            <hr class="separador-menu" />
+          </li>
+          <li>
+            <a href="" id="btnFav">Favoritos</a>
+            <hr class="separador-menu" />
+          </li>
+          <li>
+            <a href="" id="btnMis">Mis GIFOS</a>
+            <hr class="separador-menu" />
+          </li>
+          <li>
+            <a href=""
+              ><img
+                src="assets/button-crear-gifo.svg"
+                alt="crear gifos"
+                id="crear_gifos"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Cuerpo del sitio -->
+    <main id="cuerpo">
+      <!-- Seccion principal -->
+      <section class="inicio">
+        <h1 class="color1">
+          Inspírate, busca, guarda, y crea los mejores
+          <span class="color2">GIFOS</span>
+        </h1>
+        <img
+          src="assets/ilustra_header.svg"
+          alt="img saludo"
+          class="img-hero"
+        />
+        <!-- Barra de busqueda -->
+        <div class="barra-busqueda" id="barra-busqueda">
+          <div class="input-busqueda">
+            <img
+              src="assets/icon-search.svg"
+              alt="buscar"
+              id="icono-lupa"
+              class="f-gris invisible"
+            />
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Busca GIFOS y más"
+            />
+            <img src="assets/icon-search.svg" alt="buscar" id="buscar" />
+          </div>
+          <div class="search-div"></div>
+          <div id="autocomplete"></div>
+        </div>
+        <!-- Temas Trending -->
+        <section class="trending_themes">
+          <h2>Trending:</h2>
+          <p id="text-trends"></p>
+        </section>
       </section>
-      <section class="trending_themes">
-        <h2>Trending:</h2>
-        <p id="text-trends">
-        </p>
+
+      <!-- Resultados de la busqueda -->
+      <section class="grilla" id="rdo-busqueda"></section>
+
+      <!-- Trending gifs -->
+      <section class="trending">
+        <h2 class="color1">Trending GIFOS</h2>
+        <div class="subtext">
+          <p>Mira los últimos</p>
+          <p>GIFOS de nuestra comunidad.</p>
+        </div>
+        <div class="trending_gifs" id="trending_gifs"></div>
       </section>
-    </section>
+    </main>
 
-    <!-- Resultados de la busqueda -->
-    <section class="busqueda hidden">
-      <h1 id="titulo-busqueda"></h1>
-      <div id="grilla-rdo"></div>
-      <button class="ver-mas">VER MÁS</button>
-    </section>
-
-    <!-- Trending gifs -->
-    <section class="trending">
-      <h1 class="color1">Trending GIFOS</h1>
-      <div class="subtext">
-        <p>Mira los últimos</p>
-        <p>GIFOS de nuestra comunidad.</p>
+    <!-- Footer -->
+    <footer id="main_footer">
+      <p class="compartir">Compartir en:</p>
+      <div class="icons">
+        <a href="http://www.facebook.com" target="_blank">
+          <div id="face-icon" class="icon"></div>
+        </a>
+        <a href="http://www.twitter.com" target="_blank">
+          <div id="tw-icon" class="icon"></div>
+        </a>
+        <a href="http://www.instagram.com" target="_blank">
+          <div id="ig-icon" class="icon"></div>
+        </a>
       </div>
-      <div class="trending_gifs" id="trending_gifs">
-      </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer id="main_footer">
-    <p class="compartir">Compartir en:</p>
-    <div class="icons">
-      <a href="http://www.facebook.com" target="_blank">
-        <div id="face-icon"></div>
-      </a>
-      <a href="http://www.twitter.com" target="_blank">
-        <div id="tw-icon"></div>
-      </a>
-      <a href="http://www.instagram.com" target="_blank">
-        <div id="ig-icon"></div>
-      </a>
-    </div>
-    <p class="copyright">&copy; GIFOS 2020 All Rights Reserved.</p>
-  </footer>
-  <div class="barra-inicio-fin"></div>
-  <script src="main.js"></script>
-</body>
-
+      <p class="copyright">&copy; GIFOS 2020 All Rights Reserved.</p>
+    </footer>
+    <div class="barra-inicio-fin"></div>
+    <script src="main.js"></script>
+  </body>
 </html>
