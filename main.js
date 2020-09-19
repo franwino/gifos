@@ -10,6 +10,21 @@ function unhide(id) {
   el.classList.remove("hidden");
 }
 
+/* Funcionamiento menu hamburguesa */
+function menuHamburguesa() {
+  const burger = document.getElementById("btn-burger");
+  burger.addEventListener("click", (e) => {
+    e.preventDefault();
+    menu.classList.toggle("open");
+    if (menu.classList.contains("open")) {
+      burger.className = "fas fa-times";
+    } else {
+      burger.className = "fas fa-bars";
+    }
+  });
+}
+menuHamburguesa();
+
 /* Modo Nocturno */
 function modoNocturno() {
   const btn = document.getElementById("btnDarkMode");
@@ -76,45 +91,6 @@ function misGifos() {
   });
 }
 misGifos();
-
-/* Funcionamiento menu hamburguesa */
-function menuHamburguesa() {
-  const burger = document.getElementById("btn-burger");
-  burger.addEventListener("click", (e) => {
-    e.preventDefault();
-    menu.classList.toggle("open");
-    if (menu.classList.contains("open")) {
-      burger.className = "fas fa-times";
-    } else {
-      burger.className = "fas fa-bars";
-    }
-  });
-}
-menuHamburguesa();
-
-/* Renderizar una grilla a partir de busqueda de gif */
-function renderGifs(data) {
-  let grilla = "";
-  data.data.forEach((gif) => {
-    let card = "";
-    card += `<div class="gif-container">
-      <img class="gif" src="${gif.images.downsized.url}" alt="${gif.title}"/>
-      <div class="card-hover">
-        <div class="datos">
-          <p class="user">${gif.username}</p>
-          <p class="gif-title">${gif.title}</p>
-        </div>
-        <div class="card-btns">
-          <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
-          <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
-        </div>
-      </div>
-    </div>`;
-    grilla += card;
-  });
-  return grilla;
-}
 
 /* Auto Completar */
 function autocomplete() {
@@ -185,6 +161,30 @@ function autocomplete() {
 }
 autocomplete();
 
+/* Renderizar una grilla a partir de busqueda de gif */
+function renderGifs(data) {
+  let grilla = "";
+  data.data.forEach((gif) => {
+    let card = "";
+    card += `<div class="gif-container">
+      <img class="gif" src="${gif.images.downsized.url}" alt="${gif.title}"/>
+      <div class="card-hover">
+        <div class="datos">
+          <p class="user">${gif.username}</p>
+          <p class="gif-title">${gif.title}</p>
+        </div>
+        <div class="card-btns">
+          <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
+        </div>
+      </div>
+    </div>`;
+    grilla += card;
+  });
+  return grilla;
+}
+
 /* Hacer la búsqueda y renderizarla */
 function doSearch() {
   const offset = 0;
@@ -203,9 +203,18 @@ function doSearch() {
     .then((response) => response.json())
     .then((data) => {
       unhide("seccion-busqueda");
-      const grilla = renderGifs(data);
+      const header = document.getElementById("title-busq");
+      header.textContent = query;
       const container = document.getElementById("rdo-busqueda");
-      container.innerHTML = grilla;
+      if (data.pagination.total_count !== 0) {
+        const grilla = renderGifs(data);
+        container.innerHTML = grilla;
+        hide("busqueda-vacia");
+        unhide("rdo-busqueda");
+      } else {
+        hide("rdo-busqueda");
+        unhide("busqueda-vacia");
+      }
     })
     .catch((error) => console.log("error:", error));
 }

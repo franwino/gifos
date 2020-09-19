@@ -33,7 +33,7 @@ body {
 
 /* Clase para ocultar el contenido */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .invisible {

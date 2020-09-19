@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GIFOS</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/all.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
       rel="stylesheet"
@@ -19,12 +19,16 @@
       <div class="barra-inicio-fin" id="barra-inicio"></div>
       <nav id="navbar">
         <div class="barra" id="barra">
-          <picture>
-            <source
-              srcset="assets/logo-desktop.svg"
-              media="(min-width:768px)" />
-            <img src="assets/logo-mobile.svg" alt="logo" class="logo"
-          /></picture>
+          <a href="index.html"
+            ><picture>
+              <source
+                srcset="assets/logo-desktop.svg"
+                media="(min-width:768px)" />
+              <img
+                src="assets/logo-mobile.svg"
+                alt="logo"
+                class="logo" /></picture
+          ></a>
           <i class="fas fa-bars" id="btn-burger"></i>
         </div>
         <ul class="menu_list" id="menu">
@@ -88,11 +92,34 @@
       </section>
 
       <!-- Resultados de la busqueda -->
-      <section id="seccion-busqueda" class="tab">
+      <section id="seccion-busqueda" class="tab hidden">
         <div class="sec-separator"></div>
-        <div class="secc-header"></div>
+        <div class="secc-header" id="title-busq"></div>
         <div class="grilla" id="rdo-busqueda"></div>
-        <button class="vermas" id="ver-mas-busqueda">VER MAS</button>
+        <div class="contenido-vacio hidden" id="busqueda-vacia">
+          <img
+            src="assets/icon-busqueda-sin-resultado.svg"
+            alt="No se encontraron resultados"
+          />
+          <h2>Intenta con otra búsqueda.</h2>
+        </div>
+        <a class="vermas" id="ver-mas-busqueda">VER MAS</a>
+      </section>
+
+      <!-- Favoritos -->
+      <section id="seccion-favs" class="tab">
+        <img src="assets/icon-favoritos.svg" alt="Favoritos">
+        <div class="secc-header">Favoritos</div>
+        <div class="grilla" id="rdo-busqueda"></div>
+        <div class="contenido-vacio hidden" id="fav-vacia">
+          <img
+            src="assets/icon-fav-sin-contenido.svg"
+            alt="No se encontraron favoritos"
+          />
+          <h2>"¡Guarda tu primer GIFO en Favoritos 
+            para que se muestre aquí!"</h2>
+        </div>
+        <a class="vermas" id="ver-mas-fav">VER MAS</a>
       </section>
 
       <!-- Trending gifs -->
@@ -102,22 +129,7 @@
           <p>Mira los últimos</p>
           <p>GIFOS de nuestra comunidad.</p>
         </div>
-        <div class="trending-gifs" id="trending-gifs">
-         <!--  <div class="gif-container">
-            <img class="gif" src="https://media2.giphy.com/media/gjaa7sBShp9qyPQcBl/giphy.gif?cid=62588dc49u1qcnbp03chm0c4mrpicsl106l29nbqlz4ddm3v&rid=giphy.gif" alt="aaaa"/>
-            <div class="card-hover">
-              <div class="datos">
-                <p class="user">aaaa</p>
-                <p class="gif-title">bbbbbbb bbbbbbbbbbbbbbbbbbbbbb bbbbb bbbbbbbbbbbb bbbbbbbbb bbbbbbbbb</p>
-              </div>
-              <div class="card-btns">
-                <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-                <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
-                <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
-              </div>
-            </div>
-          </div> -->
-        </div>
+        <div class="trending-gifs" id="trending-gifs"></div>
       </section>
     </main>
 

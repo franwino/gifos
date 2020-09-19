@@ -25,7 +25,7 @@ body {
 
 /* Clase para ocultar el contenido */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .invisible {
@@ -53,6 +53,10 @@ p {
   width: 100%;
   height: 0.3125rem;
   background-color: var(--main-color-bg);
+}
+
+#main-header {
+  z-index: 10;
 }
 
 #main-header #navbar {
@@ -327,7 +331,6 @@ p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 2.8125rem;
 }
 
 .inicio h1,
@@ -381,14 +384,16 @@ p {
 }
 
 .sec-separator {
-  background-color: #9CAFC3;
+  background-color: #9cafc3;
   opacity: 0.5;
   height: 1px;
   width: 42vw;
   max-width: 338px;
+  margin-bottom: 2.69rem;
 }
 
 .tab {
+  padding-top: 2.18rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -400,6 +405,66 @@ p {
       -ms-flex-align: center;
           align-items: center;
   margin: 0 5.6vw;
+}
+
+.tab .secc-header {
+  text-transform: capitalize;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 1.5625rem;
+  color: var(--main-color);
+  text-align: center;
+  line-height: 2.5rem;
+  margin-bottom: 2.38rem;
+}
+
+.vermas {
+  margin-top: 4.87rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--main-color);
+  background-color: var(--bg-color);
+  border: 1px solid var(--main-color);
+  border-radius: 25px;
+  width: 127px;
+  height: 50px;
+  font: bold 0.8125rem "Montserrat", sans-serif;
+  line-height: 1rem;
+  letter-spacing: 0;
+}
+
+.vermas:hover {
+  color: var(--bg-color);
+  background-color: var(--main-color);
+}
+
+/* #seccion-busqueda {
+  
+} */
+.contenido-vacio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.contenido-vacio h2 {
+  margin-top: 29px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.375rem;
+  color: var(--sec-color);
+  text-align: center;
+  line-height: 1.56rem;
 }
 
 .grilla {
@@ -422,8 +487,6 @@ p {
 
 .gif-container {
   position: relative;
-  height: 275px;
-  width: 357px;
 }
 
 .gif-container:hover .card-hover {
@@ -507,6 +570,7 @@ p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 2.8125rem;
   padding-top: 2.875rem;
   padding-bottom: 5.125rem;
 }
@@ -542,6 +606,11 @@ p {
   -webkit-column-gap: 5.9vw;
           column-gap: 5.9vw;
   padding: 0 22px;
+}
+
+.trending-gifs .gif-container {
+  min-width: 243px;
+  height: auto;
 }
 
 #main_footer {
