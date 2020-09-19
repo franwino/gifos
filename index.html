@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GIFOS</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- <script
-      src="https://kit.fontawesome.com/2e0e0eb40e.js"
-      crossorigin="anonymous"
-    ></script> -->
+    <link rel="stylesheet" href="css/all.css">
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
       rel="stylesheet"
@@ -28,7 +25,7 @@
               media="(min-width:768px)" />
             <img src="assets/logo-mobile.svg" alt="logo" class="logo"
           /></picture>
-          <img src="assets/burger.svg" alt="abrir menu" id="btn-burger" />
+          <i class="fas fa-bars" id="btn-burger"></i>
         </div>
         <ul class="menu_list" id="menu">
           <li>
@@ -71,21 +68,16 @@
         <!-- Barra de busqueda -->
         <div class="barra-busqueda" id="barra-busqueda">
           <div class="input-busqueda">
-            <img
-              src="assets/icon-search.svg"
-              alt="buscar"
-              id="icono-lupa"
-              class="f-gris invisible"
-            />
+            <i class="invisible lupa-aux far fa-search" id="icono-lupa"></i>
             <input
               type="text"
               name="search"
               id="search"
               placeholder="Busca GIFOS y más"
             />
-            <img src="assets/icon-search.svg" alt="buscar" id="buscar" />
+            <i class="far fa-search" id="buscarborrar"></i>
           </div>
-          <div class="search-div"></div>
+          <div class="search-div invisible"></div>
           <div id="autocomplete"></div>
         </div>
         <!-- Temas Trending -->
@@ -96,7 +88,12 @@
       </section>
 
       <!-- Resultados de la busqueda -->
-      <section class="grilla" id="rdo-busqueda"></section>
+      <section id="seccion-busqueda" class="tab">
+        <div class="sec-separator"></div>
+        <div class="secc-header"></div>
+        <div class="grilla" id="rdo-busqueda"></div>
+        <button class="vermas" id="ver-mas-busqueda">VER MAS</button>
+      </section>
 
       <!-- Trending gifs -->
       <section class="trending">
@@ -105,7 +102,22 @@
           <p>Mira los últimos</p>
           <p>GIFOS de nuestra comunidad.</p>
         </div>
-        <div class="trending_gifs" id="trending_gifs"></div>
+        <div class="trending-gifs" id="trending-gifs">
+         <!--  <div class="gif-container">
+            <img class="gif" src="https://media2.giphy.com/media/gjaa7sBShp9qyPQcBl/giphy.gif?cid=62588dc49u1qcnbp03chm0c4mrpicsl106l29nbqlz4ddm3v&rid=giphy.gif" alt="aaaa"/>
+            <div class="card-hover">
+              <div class="datos">
+                <p class="user">aaaa</p>
+                <p class="gif-title">bbbbbbb bbbbbbbbbbbbbbbbbbbbbb bbbbb bbbbbbbbbbbb bbbbbbbbb bbbbbbbbb</p>
+              </div>
+              <div class="card-btns">
+                <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+                <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+                <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
+              </div>
+            </div>
+          </div> -->
+        </div>
       </section>
     </main>
 
@@ -114,13 +126,13 @@
       <p class="compartir">Compartir en:</p>
       <div class="icons">
         <a href="http://www.facebook.com" target="_blank">
-          <div id="face-icon" class="icon"></div>
+          <i class="icon fab fa-facebook-f"></i>
         </a>
         <a href="http://www.twitter.com" target="_blank">
-          <div id="tw-icon" class="icon"></div>
+          <i class="icon fab fa-twitter"></i>
         </a>
         <a href="http://www.instagram.com" target="_blank">
-          <div id="ig-icon" class="icon"></div>
+          <i class="icon fab fa-instagram"></i>
         </a>
       </div>
       <p class="copyright">&copy; GIFOS 2020 All Rights Reserved.</p>

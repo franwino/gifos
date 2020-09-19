@@ -1,0 +1,67 @@
+.grilla {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  column-gap: 5.6vw;
+  row-gap: 1.375rem;
+  .gif-container {
+    width: 41.6vw;
+    height: calc(41.6vw / 1.3);
+  }
+}
+
+.gif-container {
+  position: relative;
+  height: 275px;
+  width: 357px;
+  &:hover .card-hover {
+    opacity: 1;
+  }
+  .gif {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.card-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.5s ease;
+   opacity: 0;
+  background-color: rgba(87, 46, 229, 0.7);
+  .datos {
+    order: 1;
+    margin: 18px;
+    font-family: $font-roboto;
+    p {
+      color: #ffffff;
+    }
+    .gif-title {
+      white-space: pre-line;
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.1875rem;
+    }
+    .user {
+      font-size: 0.9375rem;
+      font-weight: 400;
+    }
+  }
+  .card-btns {
+    align-self: flex-end;
+    margin: 10px;
+    img {
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

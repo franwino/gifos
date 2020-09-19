@@ -7,6 +7,7 @@ $font-roboto: "Roboto", sans-serif;
 
 $desktop: 768px;
 
+/* Seteo variables de colores */
 :root {
   --main-color: #{$blue};
   --main-color-bg: #{$blue};
@@ -15,13 +16,6 @@ $desktop: 768px;
   --bg-trending: #{$light-grey};
   --bg-color: #{ffffff};
 }
-
-
-// Filtro para modificar el color de img svg
-.f-gris{
-  filter: brightness(0) saturate(100%) invert(77%) sepia(18%) saturate(330%) hue-rotate(170deg) brightness(87%) contrast(89%);
-}
-
 
 * {
   margin: 0;
@@ -42,7 +36,7 @@ body {
   display: none;
 }
 
-.invisible{
+.invisible {
   visibility: hidden;
 }
 
@@ -53,6 +47,7 @@ body {
   left: 0;
 }
 
+/* Estilos de links */
 a {
   color: var(--main-color);
   text-decoration: none;

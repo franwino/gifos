@@ -1,5 +1,15 @@
 const apikey = "?api_key=KppHsCiWvApmVnuPSw2XE7mi3z6XR7s9";
 
+/* Mostrar/Ocultar elementos del DOM por id */
+function hide(id) {
+  const el = document.getElementById(id);
+  el.classList.add("hidden");
+}
+function unhide(id) {
+  const el = document.getElementById(id);
+  el.classList.remove("hidden");
+}
+
 /* Modo Nocturno */
 function modoNocturno() {
   const btn = document.getElementById("btnDarkMode");
@@ -74,96 +84,131 @@ function menuHamburguesa() {
     e.preventDefault();
     menu.classList.toggle("open");
     if (menu.classList.contains("open")) {
-      burger.setAttribute("src", "assets/close.svg");
+      burger.className = "fas fa-times";
     } else {
-      burger.setAttribute("src", "assets/burger.svg");
+      burger.className = "fas fa-bars";
     }
   });
 }
 menuHamburguesa();
 
-/* Search */
-function search() {
-  const input = document.getElementById("search");
-  function autoComplete(query) {
+/* Renderizar una grilla a partir de busqueda de gif */
+function renderGifs(data) {
+  let grilla = "";
+  data.data.forEach((gif) => {
+    let card = "";
+    card += `<div class="gif-container">
+      <img class="gif" src="${gif.images.downsized.url}" alt="${gif.title}"/>
+      <div class="card-hover">
+        <div class="datos">
+          <p class="user">${gif.username}</p>
+          <p class="gif-title">${gif.title}</p>
+        </div>
+        <div class="card-btns">
+          <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
+        </div>
+      </div>
+    </div>`;
+    grilla += card;
+  });
+  return grilla;
+}
+
+/* Auto Completar */
+function autocomplete() {
+  const lista = document.getElementById("autocomplete");
+  const btn = document.getElementById("buscarborrar");
+  function request(query) {
     const url =
       "https://api.giphy.com/v1/gifs/search/tags" + apikey + "&q=" + query;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         let n = Math.min(data.data.length, 4);
-        const lista = document.getElementById("autocomplete");
         lista.innerHTML = "";
         for (let i = 0; i < n; i++) {
-          const img = document.createElement("img");
-          img.src = "assets/icon-search.svg";
-          img.className = "f-gris";
+          const img = document.createElement("i");
+          img.className = "lupa-aux far fa-search";
           const el = document.createElement("p");
           el.innerText = data.data[i].name;
           const container = document.createElement("div");
           container.className = "autocomplete-field";
           container.appendChild(img);
           container.appendChild(el);
+          el.addEventListener("click", (e) => {
+            input.value = data.data[i].name;
+            doSearch();
+            input.value = "";
+            request(input.value);
+          });
           lista.appendChild(container);
+        }
+        const icono = document.getElementById("icono-lupa");
+        if (query != "") {
+          icono.classList.remove("invisible");
+          btn.classList.remove("fa-search");
+          btn.classList.add("fa-times");
+        } else {
+          icono.classList.add("invisible");
+          btn.classList.add("fa-search");
+          btn.classList.remove("fa-times");
+        }
+        const div = document.getElementsByClassName("search-div");
+        if (lista.childElementCount != 0) {
+          div[0].classList.remove("invisible");
+        } else {
+          div[0].classList.add("invisible");
         }
       })
       .catch((error) => console.log("error:", error));
   }
+  const input = document.getElementById("search");
+  btn.addEventListener("click", (e) => {
+    input.value = "";
+    request(input.value);
+  });
   input.addEventListener("input", (e) => {
-    let query = input.value;
-    autoComplete(query);
+    request(input.value);
   });
-  const btnBuscar = document.getElementById("buscar");
-  btnBuscar.addEventListener("click", (e) => {
-    const section = document.getElementById("rdo-busqueda");
-    section.innerText = "";
-    doSearch();
-  });
-  function doSearch() {
-    const offset = 0;
-    const query = document.getElementById("search").value;
-    const limit = 12;
-    const url =
-      "https://api.giphy.com/v1/gifs/search" +
-      apikey +
-      "&q=" +
-      query +
-      "&limit=" +
-      limit +
-      "&offset=" +
-      offset;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => renderGrilla(data))
-      .catch((error) => console.log("error:", error));
-
-    function renderGrilla(data) {
-      const section = document.getElementById("rdo-busqueda");
-      const title = document.createElement("h2");
-      title.innerText = query;
-      section.appendChild(title);
-      const grilla = document.createElement("div");
-      grilla.className = "grilla-rdo";
-      data.data.forEach((gif) => {
-        const el = document.createElement("img");
-        el.src = gif.images.downsized.url;
-        el.style.width = "243px";
-        el.style.height = "187px";
-        el.alt = gif.images.title;
-        const cont = document.createElement("div");
-        cont.className = "gif-container";
-        cont.appendChild(el);
-        grilla.appendChild(cont);
-      });
-      section.appendChild(grilla);
-      const btn = document.createElement("button");
-      btn.className = "ver-mas";
-      btn.innerText = "VER MÁS";
-      section.appendChild(btn);
+  input.addEventListener("keydown", (e) => {
+    if (input.value !== "" && e.key == "Enter") {
+      e.preventDefault();
+      doSearch();
+      input.value = "";
+      request(input.value);
     }
-  }
+    if (input.value !== "" && e.key == "ArrowDown") {
+    }
+  });
 }
-search();
+autocomplete();
+
+/* Hacer la búsqueda y renderizarla */
+function doSearch() {
+  const offset = 0;
+  const query = document.getElementById("search").value;
+  const limit = 12;
+  const url =
+    "https://api.giphy.com/v1/gifs/search" +
+    apikey +
+    "&q=" +
+    query +
+    "&limit=" +
+    limit +
+    "&offset=" +
+    offset;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      unhide("seccion-busqueda");
+      const grilla = renderGifs(data);
+      const container = document.getElementById("rdo-busqueda");
+      container.innerHTML = grilla;
+    })
+    .catch((error) => console.log("error:", error));
+}
 
 /* Trending Searchs */
 function trendingSearchs() {
@@ -194,21 +239,11 @@ function trendingGifs() {
 
   fetch(url)
     .then((response) => response.json())
-    .then((data) => createElement(data))
+    .then((data) => {
+      const grilla = renderGifs(data);
+      const container = document.getElementById("trending-gifs");
+      container.innerHTML = grilla;
+    })
     .catch((error) => console.log("error:", error));
-
-  function createElement(data) {
-    data.data.forEach((gif) => {
-      const el = document.createElement("img");
-      el.src = gif.images.downsized.url;
-      el.style.width = "243px";
-      el.style.height = "187px";
-      el.alt = gif.images.title;
-      const cont = document.createElement("div");
-      cont.className = "gif-container";
-      cont.appendChild(el);
-      document.getElementById("trending_gifs").appendChild(cont);
-    });
-  }
 }
 trendingGifs();

@@ -25,18 +25,11 @@
   }
 }
 
-.trending_gifs {
+.trending-gifs {
   width: 100%;
   overflow: auto;
   white-space: nowrap;
   display: flex;
   column-gap: 5.9vw;
   padding: 0 22px;
-  .gif-container {
-    display: inline;
-    img {
-      width: 64.8vw;
-      height: 49.8vw;
-    }
-  }
 }
