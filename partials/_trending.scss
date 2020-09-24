@@ -31,10 +31,10 @@
   overflow: auto;
   white-space: nowrap;
   display: flex;
-  column-gap: 5.9vw;
+  justify-content: space-between;
+  column-gap: clamp(20px, 5.9vw, 29px);
   padding: 0 22px;
   .gif-container {
     min-width: 243px;
-    height: auto;
   }
 }

@@ -393,7 +393,6 @@ p {
 }
 
 .tab {
-  padding-top: 2.18rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -404,7 +403,8 @@ p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 5.6vw;
+  padding: 0 5.6vw;
+  padding-top: 2.18rem;
 }
 
 .tab .secc-header {
@@ -467,30 +467,31 @@ p {
   line-height: 1.56rem;
 }
 
+@media screen and (min-width: 768px) {
+  .tab {
+    padding: 0 10.8vw;
+  }
+}
+
 .grilla {
   width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(156px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
-  -ms-grid-columns: (minmax(120px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  -webkit-column-gap: 5.6vw;
-          column-gap: 5.6vw;
-  row-gap: 1.375rem;
-}
-
-.grilla .gif-container {
-  width: 41.6vw;
-  height: calc(41.6vw / 1.3);
+  /* grid-template-rows: repeat(auto-fit, minmax(156px, 1fr)); */
+  grid-auto-flow: row;
+  grid-auto-rows: 120px;
+  -webkit-column-gap: 21px;
+          column-gap: 21px;
+  row-gap: 24px;
+  justify-items: center;
 }
 
 .gif-container {
   position: relative;
-}
-
-.gif-container:hover .card-hover {
-  opacity: 1;
+  /* flex: 1 1 0; */
+  width: 100%;
 }
 
 .gif-container .gif {
@@ -498,15 +499,13 @@ p {
   height: 100%;
 }
 
-.card-hover {
+.gif-container .card-hover {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -520,7 +519,7 @@ p {
   background-color: rgba(87, 46, 229, 0.7);
 }
 
-.card-hover .datos {
+.gif-container .card-hover .datos {
   -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1;
@@ -528,34 +527,102 @@ p {
   font-family: "Roboto", sans-serif;
 }
 
-.card-hover .datos p {
+.gif-container .card-hover .datos p {
   color: #ffffff;
 }
 
-.card-hover .datos .gif-title {
+.gif-container .card-hover .datos .gif-title {
   white-space: pre-line;
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.1875rem;
 }
 
-.card-hover .datos .user {
+.gif-container .card-hover .datos .user {
   font-size: 0.9375rem;
   font-weight: 400;
 }
 
-.card-hover .card-btns {
+.gif-container .card-hover .card-btns {
   -ms-flex-item-align: end;
       align-self: flex-end;
   margin: 10px;
 }
 
-.card-hover .card-btns img {
-  opacity: 0.6;
+.gif-container.max {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0 7.5vw 0 7.7vw;
+  background-color: var(--bg-color);
 }
 
-.card-hover .card-btns img:hover {
+.gif-container.max .close-max {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-top: 11%;
+  margin-bottom: 80px;
+  color: var(--main-color);
+}
+
+.gif-container.max .gif {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.gif-container.max .card-hover {
+  position: relative;
+  height: unset;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   opacity: 1;
+  /* background-color: var(--bg-color); */
+}
+
+.gif-container.max .card-hover .datos {
+  -webkit-box-ordinal-group: 1;
+      -ms-flex-order: 0;
+          order: 0;
+}
+
+.gif-container.max .card-hover .datos p {
+  color: var(--main-color-2);
+}
+
+@media screen and (min-width: 768px) {
+  .grilla {
+    -ms-grid-columns: (minmax(260px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-auto-rows: 200px;
+    row-gap: 30px;
+    -webkit-column-gap: 29px;
+            column-gap: 29px;
+  }
+  .gif-container:hover .card-hover {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+  }
+  .card-btns img {
+    opacity: 0.6;
+  }
+  .card-btns img:hover {
+    opacity: 1;
+  }
 }
 
 .trending {
@@ -603,14 +670,16 @@ p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 5.9vw;
-          column-gap: 5.9vw;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-column-gap: clamp(20px, 5.9vw, 29px);
+          column-gap: clamp(20px, 5.9vw, 29px);
   padding: 0 22px;
 }
 
 .trending-gifs .gif-container {
   min-width: 243px;
-  height: auto;
 }
 
 #main_footer {

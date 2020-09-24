@@ -161,44 +161,50 @@ function autocomplete() {
 }
 autocomplete();
 
-/* Renderizar una grilla a partir de busqueda de gif */
-function renderGifs(data) {
-  let grilla = "";
-  data.data.forEach((gif) => {
-    let card = "";
-    card += `<div class="gif-container">
-      <img class="gif" src="${gif.images.downsized.url}" alt="${gif.title}"/>
+/* Renderizar un gif en un contenedor. Devuelve el HTML */
+function renderGif(gif) {
+  let user = gif.username;
+  if (user === "") {
+    user = "Anónimo";
+  }
+  let titulo = gif.title;
+  if (titulo === "") {
+    titulo = "Sin descripción";
+  }
+  let card = "";
+  card += `<div class="gif-container" id="${gif.id}">
+      <i class="hidden close-max fas fa-times"></i>
+      <img class="gif" src="${gif.images.downsized.url}" alt="${titulo}"/>
       <div class="card-hover">
         <div class="datos">
-          <p class="user">${gif.username}</p>
-          <p class="gif-title">${gif.title}</p>
+          <p class="user">${user}</p>
+          <p class="gif-title">${titulo}</p>
         </div>
         <div class="card-btns">
-          <img src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
-          <img src="assets/icon-max-hover.svg" alt="Maximizar"/>
+          <img data-id="${gif.id}" class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img data-id="${gif.id}" class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img data-id="${gif.id}" class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
     </div>`;
-    grilla += card;
+  return card;
+}
+
+/* Renderizar una grilla de gifs a partir de una busqueda */
+function renderGrilla(data) {
+  let grilla = "";
+  data.data.forEach((gif) => {
+    grilla += renderGif(gif);
   });
   return grilla;
 }
 
-/* Hacer la búsqueda y renderizarla */
+/* Hacer la búsqueda y llamar a renderizarla */
 function doSearch() {
-  const offset = 0;
+  let offset = 0;
   const query = document.getElementById("search").value;
   const limit = 12;
-  const url =
-    "https://api.giphy.com/v1/gifs/search" +
-    apikey +
-    "&q=" +
-    query +
-    "&limit=" +
-    limit +
-    "&offset=" +
-    offset;
+  const url = `https://api.giphy.com/v1/gifs/search${apikey}&q=${query}&limit=${limit}&offset=${offset}`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -207,7 +213,7 @@ function doSearch() {
       header.textContent = query;
       const container = document.getElementById("rdo-busqueda");
       if (data.pagination.total_count !== 0) {
-        const grilla = renderGifs(data);
+        const grilla = renderGrilla(data);
         container.innerHTML = grilla;
         hide("busqueda-vacia");
         unhide("rdo-busqueda");
@@ -215,6 +221,7 @@ function doSearch() {
         hide("rdo-busqueda");
         unhide("busqueda-vacia");
       }
+      maxGif();
     })
     .catch((error) => console.log("error:", error));
 }
@@ -244,15 +251,38 @@ trendingSearchs();
 
 /* Trending GIFs */
 function trendingGifs() {
-  const url = "https://api.giphy.com/v1/gifs/trending" + apikey + "&limit=3";
+  const limit = 3;
+  let offset = 0;
+  const url = `https://api.giphy.com/v1/gifs/trending${apikey}&limit=${limit}&offset=${offset}`;
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      const grilla = renderGifs(data);
+      const grilla = renderGrilla(data);
       const container = document.getElementById("trending-gifs");
       container.innerHTML = grilla;
+      maxGif();
     })
     .catch((error) => console.log("error:", error));
 }
 trendingGifs();
+
+/* Maximizar GIF */
+function maxGif() {
+  const gifs = document.getElementsByClassName("gif");
+  for (gif of gifs) {
+    gif.addEventListener("click", function () {
+      /* Busco y maximizo el gif elegido segun el id del padre */
+      const parentId = this.parentNode.id;
+      nodo = document.getElementById(parentId);
+      nodo.classList.add("max");
+      const close = nodo.firstElementChild;
+      /* Muestro y habilito boton de cerrar */
+      close.classList.remove("hidden");
+      close.addEventListener("click", (e) => {
+        nodo.classList.remove("max");
+        close.classList.add("hidden");
+      });
+    });
+  }
+}

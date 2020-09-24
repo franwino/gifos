@@ -8,11 +8,11 @@
 }
 
 .tab {
-  padding-top: 2.18rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 5.6vw;
+  padding: 0 5.6vw;
+  padding-top: 2.18rem;
   .secc-header {
     text-transform: capitalize;
     font-family: $font-mont;
@@ -60,4 +60,10 @@
     text-align: center;
     line-height: 1.56rem;
   }
+}
+
+@media screen and (min-width: $desktop) {
+.tab{
+  padding: 0 10.8vw;
+}
 }
