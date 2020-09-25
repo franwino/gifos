@@ -40,7 +40,9 @@ function getPos(el) {
 /* Mostrar sombra en el menu al hacer scroll */
 function stickySearch() {
   const searchbar = document.getElementById("barra-busqueda");
-  let ypos = getPos(searchbar).y + 95;
+  const sbHeight = searchbar.offsetHeight;
+  let ypos = getPos(searchbar).y + 95 + sbHeight;
+  const hero = document.querySelector(".img-hero");
   window.onscroll = function () {
     const navbar = document.getElementById("main-header");
     console.log("windows offset: " + window.pageYOffset);
@@ -49,8 +51,10 @@ function stickySearch() {
       navbar.classList.add("bot-shadow");
       if (window.pageYOffset > ypos) {
         searchbar.classList.add("sticky");
+        hero.style.marginBottom = sbHeight + "px";
       } else {
         searchbar.classList.remove("sticky");
+        hero.style.marginBottom = 0;
       }
     } else {
       navbar.classList.remove("bot-shadow");
