@@ -28,13 +28,14 @@
 
 .trending-gifs {
   width: 100%;
-  overflow: auto;
-  white-space: nowrap;
   display: flex;
-  justify-content: space-between;
+  overflow: auto;
   column-gap: clamp(20px, 5.9vw, 29px);
   padding: 0 22px;
   .gif-container {
-    min-width: 243px;
+    .gif {
+      width: 243px;
+      height: 187px;
+    }
   }
 }

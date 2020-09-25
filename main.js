@@ -10,6 +10,55 @@ function unhide(id) {
   el.classList.remove("hidden");
 }
 
+/* Obtener coordenadas de un elemento */
+function getPos(el) {
+  var xPos = 0;
+  var yPos = 0;
+
+  while (el) {
+    if (el.tagName == "BODY") {
+      // deal with browser quirks with body/window/document and page scroll
+      var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+      var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+      xPos += el.offsetLeft - xScroll + el.clientLeft;
+      yPos += el.offsetTop - yScroll + el.clientTop;
+    } else {
+      // for all other non-BODY elements
+      xPos += el.offsetLeft - el.scrollLeft + el.clientLeft;
+      yPos += el.offsetTop - el.scrollTop + el.clientTop;
+    }
+
+    el = el.offsetParent;
+  }
+  return {
+    x: xPos,
+    y: yPos,
+  };
+}
+
+/* Mostrar sombra en el menu al hacer scroll */
+function stickySearch() {
+  const searchbar = document.getElementById("barra-busqueda");
+  let ypos = getPos(searchbar).y + 95;
+  window.onscroll = function () {
+    const navbar = document.getElementById("main-header");
+    console.log("windows offset: " + window.pageYOffset);
+    console.log("ypos: " + ypos);
+    if (window.pageYOffset > 1) {
+      navbar.classList.add("bot-shadow");
+      if (window.pageYOffset > ypos) {
+        searchbar.classList.add("sticky");
+      } else {
+        searchbar.classList.remove("sticky");
+      }
+    } else {
+      navbar.classList.remove("bot-shadow");
+    }
+  };
+}
+stickySearch();
+
 /* Funcionamiento menu hamburguesa */
 function menuHamburguesa() {
   const burger = document.getElementById("btn-burger");
@@ -41,19 +90,19 @@ function modoNocturno() {
       setColor("--main-color-2", "#ffffff");
       setColor("--bg-color", "#37383C");
       setColor("--bg-trending", "#222326");
-      btn.innerText = "Modo Diurno";
+      btn.textContent = "Modo Diurno";
       menu.classList.add("dark");
       for (const icon of icons) {
         icon.classList.add("dark");
       }
       newMode = true;
     } else {
-      setColor("--main-color", " #572ee5");
+      setColor("--main-color", "#572ee5");
       setColor("--main-color-bg", "#572ee5");
       setColor("--main-color-2", "#000000");
       setColor("--bg-color", "#ffffff");
       setColor("--bg-trending", "#F3F5F8");
-      btn.innerText = "Modo Nocturno";
+      btn.textContent = "Modo Nocturno";
       menu.classList.remove("dark");
       for (const icon of icons) {
         icon.classList.remove("dark");

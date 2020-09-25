@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 47px;
+  padding-bottom: 1.5rem;
   font-family: $font-roboto;
   font-weight: 400;
   p{
@@ -13,17 +14,22 @@
     line-height: 1.125rem;
     font-size: 0.9375rem;
   }
+  .share{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .icons {
     width: 25vw;
-    margin-top: 1.5rem;
-    margin-bottom: 3rem;
     display: flex;
     justify-content: space-between;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
   }
   .copyright {
-    margin-bottom: 1.5rem;
     line-height: 1.25rem;
     font-size: 0.875rem;
+    text-align: center;
   }
   .icon {
     display: inline-block;
@@ -53,12 +59,17 @@
   #main_footer {
     padding: 3.125rem 10.9vw;
     flex-direction: row;
+    justify-content: space-between;
     .compartir,
     .copyright {
       font-size: 0.8125rem;
     }
+    .share{
+      flex-direction: row;
+    }
     .icons {
-      margin: 0 51vw 0 1.2vw;
+      margin: 0;
+      margin-left:1.2vw;
       width: 6.6vw;
     }
     .copyright {
