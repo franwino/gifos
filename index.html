@@ -14,7 +14,6 @@
 
   <body>
     <!-- Barra de navegacion -->
-
     <header id="main-header">
       <div class="barra-inicio-fin" id="barra-inicio"></div>
       <nav id="navbar">
@@ -54,7 +53,7 @@
     <!-- Cuerpo del sitio -->
     <main id="cuerpo">
       <!-- Seccion principal -->
-      <section class="inicio">
+      <section class="inicio" id="inicio">
         <h1 class="color1">
           Inspírate, busca, guarda, y crea los mejores
           <span class="color2">GIFOS</span>
@@ -88,6 +87,7 @@
 
       <!-- Resultados de la busqueda -->
       <section id="seccion-busqueda" class="tab hidden">
+        <a id="goto-search" style="position: relative; top: -100px"></a>
         <div class="sec-separator"></div>
         <div class="secc-header" id="title-busq">Test</div>
         <div class="grilla" id="rdo-busqueda"></div>
@@ -102,10 +102,10 @@
       </section>
 
       <!-- Favoritos -->
-      <section id="seccion-favs" class="hidden tab">
+      <section id="sec-favs" class="hidden tab">
         <img src="assets/icon-favoritos.svg" alt="Favoritos" />
         <div class="secc-header">Favoritos</div>
-        <div class="grilla" id="rdo-busqueda"></div>
+        <div class="grilla" id="rdo-favs"></div>
         <div class="contenido-vacio hidden" id="fav-vacia">
           <img
             src="assets/icon-fav-sin-contenido.svg"
@@ -118,14 +118,33 @@
         <a class="vermas" id="ver-mas-fav">VER MAS</a>
       </section>
 
+      <!-- Mis Gifos -->
+      <section id="sec-misGifos" class="hidden tab">
+        <img src="assets/icon-favoritos.svg" alt="Favoritos" />
+        <div class="secc-header">Mis GIFOS</div>
+        <div class="grilla" id="rdo-mis-gifos"></div>
+        <div class="contenido-vacio hidden" id="misGifos-vacia">
+          <img
+            src="assets/icon-fav-sin-contenido.svg"
+            alt="No se encontraron favoritos"
+          />
+          <h2>¡Anímate a crear tu primer GIFO!</h2>
+        </div>
+        <a class="vermas" id="ver-mas-misGifos">VER MAS</a>
+      </section>
+
       <!-- Trending gifs -->
-      <section class="trending">
+      <section class="trending" id="sec-trending">
         <h2 class="color1">Trending GIFOS</h2>
         <div class="subtext">
           <p>Mira los últimos</p>
           <p>GIFOS de nuestra comunidad.</p>
         </div>
-        <div class="trending-gifs" id="trending-gifs"></div>
+        <div id="menu-trending">
+          <div class="slider" id="trendLbtn"></div>
+          <div class="trending-gifs" id="trending-gifs"></div>
+          <div class="slider" id="trendRbtn"></div>
+        </div>
       </section>
     </main>
 

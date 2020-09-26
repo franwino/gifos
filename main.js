@@ -37,7 +37,7 @@ function getPos(el) {
   };
 }
 
-/* Mostrar sombra en el menu al hacer scroll */
+/* Menu scroll - Sombre y searchbar sticky */
 function stickySearch() {
   const searchbar = document.getElementById("barra-busqueda");
   const sbHeight = searchbar.offsetHeight;
@@ -45,13 +45,11 @@ function stickySearch() {
   const hero = document.querySelector(".img-hero");
   window.onscroll = function () {
     const navbar = document.getElementById("main-header");
-    console.log("windows offset: " + window.pageYOffset);
-    console.log("ypos: " + ypos);
     if (window.pageYOffset > 1) {
       navbar.classList.add("bot-shadow");
-      if (window.pageYOffset > ypos) {
+      if (window.pageYOffset > ypos && window.innerWidth > 1000) {
         searchbar.classList.add("sticky");
-        hero.style.marginBottom = sbHeight + "px";
+        hero.style.marginBottom = sbHeight + 31 + "px";
       } else {
         searchbar.classList.remove("sticky");
         hero.style.marginBottom = 0;
@@ -132,6 +130,10 @@ function favoritos() {
   const btn = document.getElementById("btnFav");
   btn.addEventListener("click", (e) => {
     e.preventDefault();
+    hide("inicio");
+    hide("seccion-busqueda");
+    hide("sec-misGifos");
+    unhide("sec-favs");
   });
 }
 favoritos();
@@ -141,6 +143,10 @@ function misGifos() {
   const btn = document.getElementById("btnMis");
   btn.addEventListener("click", (e) => {
     e.preventDefault();
+    hide("inicio");
+    hide("seccion-busqueda");
+    hide("sec-favs");
+    unhide("sec-misGifos");
   });
 }
 misGifos();
@@ -214,19 +220,40 @@ function autocomplete() {
 }
 autocomplete();
 
+function fav(id) {
+  console.log(id);
+}
+
+function download(id) {
+  console.log(id);
+}
+
+function toggleMax(elem) {
+  elem.classList.remove("min");
+  elem.classList.add("max");
+  const close = elem.firstElementChild;
+  /* Muestro y habilito boton de cerrar */
+  close.classList.remove("hidden");
+  close.addEventListener("click", (e) => {
+    elem.classList.add("min");
+    elem.classList.remove("max");
+    close.classList.add("hidden");
+  });
+}
+
 /* Renderizar un gif en un contenedor. Devuelve el HTML */
 function renderGif(gif) {
   let user = gif.username;
   if (user === "") {
-    user = "Anónimo";
+    user = "anonymous";
   }
   let titulo = gif.title;
   if (titulo === "") {
     titulo = "Sin descripción";
   }
   let card = "";
-  card += `<div class="gif-container" id="${gif.id}">
-      <i class="hidden close-max fas fa-times"></i>
+  card += `<div class="gif-container min" id="${gif.id}">
+      <i class="close-max fas fa-times hidden"></i>
       <img class="gif" src="${gif.images.downsized.url}" alt="${titulo}"/>
       <div class="card-hover">
         <div class="datos">
@@ -234,9 +261,9 @@ function renderGif(gif) {
           <p class="gif-title">${titulo}</p>
         </div>
         <div class="card-btns">
-          <img data-id="${gif.id}" class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img data-id="${gif.id}" class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
-          <img data-id="${gif.id}" class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
+          <img onclick=fav(${gif.id}) class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img onclick=download(${gif.id}) class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img onclick=toggleMax(${gif.id}) class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
     </div>`;
@@ -274,6 +301,8 @@ function doSearch() {
         hide("rdo-busqueda");
         unhide("busqueda-vacia");
       }
+      const gotoSearch = document.getElementById("goto-search");
+      gotoSearch.scrollIntoView();
       maxGif();
     })
     .catch((error) => console.log("error:", error));
@@ -326,16 +355,8 @@ function maxGif() {
   for (gif of gifs) {
     gif.addEventListener("click", function () {
       /* Busco y maximizo el gif elegido segun el id del padre */
-      const parentId = this.parentNode.id;
-      nodo = document.getElementById(parentId);
-      nodo.classList.add("max");
-      const close = nodo.firstElementChild;
-      /* Muestro y habilito boton de cerrar */
-      close.classList.remove("hidden");
-      close.addEventListener("click", (e) => {
-        nodo.classList.remove("max");
-        close.classList.add("hidden");
-      });
+      const parentElem = document.getElementById(this.parentNode.id);
+      toggleMax(parentElem);
     });
   }
 }

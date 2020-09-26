@@ -25,6 +25,9 @@
     }
   }
 }
+#menu-trending {
+  width: 100%;
+}
 
 .trending-gifs {
   width: 100%;
@@ -32,10 +35,63 @@
   overflow: auto;
   column-gap: clamp(20px, 5.9vw, 29px);
   padding: 0 22px;
+  .slider {
+    display: none;
+  }
   .gif-container {
     .gif {
       width: 243px;
       height: 187px;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .trending-gifs {
+    justify-content: space-between;
+    overflow: visible;
+    width: 77vw;
+    padding: 0 1.6vw;
+    .gif-container {
+      .gif {
+        width: 21.9vw;
+        height: 16.9vw;
+      }
+    }
+  }
+  #menu-trending {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6.5vw;
+  }
+  .slider {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+  #trendLbtn {
+    background-image: url("assets/button-slider-left.svg");
+    &:hover {
+      background-image: url("assets/button-slider-left-hover.svg");
+    }
+  }
+  #trendRbtn {
+    background-image: url("assets/button-slider-right.svg");
+    &:hover {
+      background-image: url("assets/button-slider-right-hover.svg");
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .trending-gifs {
+    width: 81.4vw;
+    .gif-container {
+      .gif {
+        width: 24.8vw;
+        height: 19.1vw;
+      }
     }
   }
 }
