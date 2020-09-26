@@ -228,7 +228,8 @@ function download(id) {
   console.log(id);
 }
 
-function toggleMax(elem) {
+function toggleMax(id) {
+  const elem = document.getElementById(id);
   elem.classList.remove("min");
   elem.classList.add("max");
   const close = elem.firstElementChild;
@@ -261,9 +262,9 @@ function renderGif(gif) {
           <p class="gif-title">${titulo}</p>
         </div>
         <div class="card-btns">
-          <img onclick=fav(${gif.id}) class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img onclick=download(${gif.id}) class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
-          <img onclick=toggleMax(${gif.id}) class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
+          <img onclick=fav("${gif.id}") class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img onclick=download("${gif.id}") class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img onclick=toggleMax("${gif.id}") class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
     </div>`;
@@ -355,8 +356,7 @@ function maxGif() {
   for (gif of gifs) {
     gif.addEventListener("click", function () {
       /* Busco y maximizo el gif elegido segun el id del padre */
-      const parentElem = document.getElementById(this.parentNode.id);
-      toggleMax(parentElem);
+      toggleMax(this.parentNode.id);
     });
   }
 }
