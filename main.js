@@ -37,6 +37,23 @@ function getPos(el) {
   };
 }
 
+/* Quitar clase active de todos los elementos */
+function quitarActive() {
+  const active = document.querySelectorAll(".active");
+  for (elem of active) {
+    if (elem.classList.contains("active")) {
+      elem.classList.remove("active");
+      break;
+    }
+  }
+}
+
+/* Hacer active solo un elemento */
+function makeActive(elem) {
+  quitarActive();
+  elem.classList.add("active");
+}
+
 /* Menu scroll - Sombre y searchbar sticky */
 function stickySearch() {
   const searchbar = document.getElementById("barra-busqueda");
@@ -63,18 +80,16 @@ stickySearch();
 
 /* Funcionamiento menu hamburguesa */
 function menuHamburguesa() {
-  const burger = document.getElementById("btn-burger");
-  burger.addEventListener("click", (e) => {
-    e.preventDefault();
+  if (window.innerWidth < 768) {
+    const burger = document.getElementById("btn-burger");
     menu.classList.toggle("open");
     if (menu.classList.contains("open")) {
       burger.className = "fas fa-times";
     } else {
       burger.className = "fas fa-bars";
     }
-  });
+  }
 }
-menuHamburguesa();
 
 /* Modo Nocturno */
 function modoNocturno() {
@@ -83,8 +98,7 @@ function modoNocturno() {
   function setColor(vble, color) {
     document.documentElement.style.setProperty(vble, color);
   }
-  const icons = document.getElementsByClassName("icon");
-
+  const body = document.getElementsByTagName("body")[0];
   function toggleMode(mode) {
     if (mode == false) {
       setColor("--main-color", "#ffffff");
@@ -93,10 +107,7 @@ function modoNocturno() {
       setColor("--bg-color", "#37383C");
       setColor("--bg-trending", "#222326");
       btn.textContent = "Modo Diurno";
-      menu.classList.add("dark");
-      for (const icon of icons) {
-        icon.classList.add("dark");
-      }
+      body.classList.add("dark");
       newMode = true;
     } else {
       setColor("--main-color", "#572ee5");
@@ -105,10 +116,7 @@ function modoNocturno() {
       setColor("--bg-color", "#ffffff");
       setColor("--bg-trending", "#F3F5F8");
       btn.textContent = "Modo Nocturno";
-      menu.classList.remove("dark");
-      for (const icon of icons) {
-        icon.classList.remove("dark");
-      }
+      body.classList.remove("dark");
       newMode = false;
     }
     return newMode;
@@ -125,6 +133,25 @@ function modoNocturno() {
 }
 modoNocturno();
 
+/* Botón Home */
+function home() {
+  const btn = document.getElementById("btnHome");
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    unhide("inicio");
+    hide("seccion-busqueda");
+    hide("sec-misGifos");
+    hide("sec-favs");
+    hide("sec-crear");
+    quitarActive();
+    if (menu.classList.contains("open")) {
+      menuHamburguesa();
+    }
+    window.scrollTo(0, 0);
+  });
+}
+home();
+
 /* Favoritos */
 function favoritos() {
   const btn = document.getElementById("btnFav");
@@ -133,7 +160,11 @@ function favoritos() {
     hide("inicio");
     hide("seccion-busqueda");
     hide("sec-misGifos");
+    hide("sec-crear");
     unhide("sec-favs");
+    menuHamburguesa();
+    makeActive(btn);
+    window.scrollTo(0, 0);
   });
 }
 favoritos();
@@ -146,10 +177,31 @@ function misGifos() {
     hide("inicio");
     hide("seccion-busqueda");
     hide("sec-favs");
+    hide("sec-crear");
     unhide("sec-misGifos");
+    menuHamburguesa();
+    makeActive(btn);
+    window.scrollTo(0, 0);
   });
 }
 misGifos();
+
+/* Crear nuevos Gifos */
+function crearGifos() {
+  const btn = document.getElementById("btnCrear");
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    hide("inicio");
+    hide("seccion-busqueda");
+    hide("sec-favs");
+    hide("sec-misGifos");
+    unhide("sec-crear");
+    menuHamburguesa();
+    makeActive(btn);
+    window.scrollTo(0, 0);
+  });
+}
+crearGifos();
 
 /* Auto Completar */
 function autocomplete() {
@@ -228,6 +280,7 @@ function download(id) {
   console.log(id);
 }
 
+/* Maximizar GIF */
 function toggleMax(id) {
   const elem = document.getElementById(id);
   elem.classList.remove("min");
@@ -250,12 +303,12 @@ function renderGif(gif) {
   }
   let titulo = gif.title;
   if (titulo === "") {
-    titulo = "Sin descripción";
+    titulo = "Sin título";
   }
   let card = "";
   card += `<div class="gif-container min" id="${gif.id}">
       <i class="close-max fas fa-times hidden"></i>
-      <img class="gif" src="${gif.images.downsized.url}" alt="${titulo}"/>
+      <img class="gif" src="${gif.images.downsized.url}" onclick=toggleMax("${gif.id}") alt="${titulo}"/>
       <div class="card-hover">
         <div class="datos">
           <p class="user">${user}</p>
@@ -304,7 +357,6 @@ function doSearch() {
       }
       const gotoSearch = document.getElementById("goto-search");
       gotoSearch.scrollIntoView();
-      maxGif();
     })
     .catch((error) => console.log("error:", error));
 }
@@ -344,19 +396,7 @@ function trendingGifs() {
       const grilla = renderGrilla(data);
       const container = document.getElementById("trending-gifs");
       container.innerHTML = grilla;
-      maxGif();
     })
     .catch((error) => console.log("error:", error));
 }
 trendingGifs();
-
-/* Maximizar GIF */
-function maxGif() {
-  const gifs = document.getElementsByClassName("gif");
-  for (gif of gifs) {
-    gif.addEventListener("click", function () {
-      /* Busco y maximizo el gif elegido segun el id del padre */
-      toggleMax(this.parentNode.id);
-    });
-  }
-}

@@ -18,17 +18,13 @@
       <div class="barra-inicio-fin" id="barra-inicio"></div>
       <nav id="navbar">
         <div class="barra" id="barra">
-          <a href="index.html"
-            ><picture>
-              <source
-                srcset="assets/logo-desktop.svg"
-                media="(min-width:768px)" />
-              <img
-                src="assets/logo-mobile.svg"
-                alt="logo"
-                class="logo" /></picture
-          ></a>
-          <i class="fas fa-bars" id="btn-burger"></i>
+          <picture id="btnHome">
+            <source
+              srcset="assets/logo-desktop.svg"
+              media="(min-width:768px)" />
+            <img src="assets/logo-mobile.svg" alt="inicio" class="logo"
+          /></picture>
+          <i class="fas fa-bars" id="btn-burger" onclick="menuHamburguesa()"></i>
         </div>
         <ul class="menu_list" id="menu">
           <li>
@@ -44,7 +40,7 @@
             <hr class="separador-menu" />
           </li>
           <li>
-            <i class="fas fa-plus" id="crear_gifos"></i>
+            <div class="crear_gifos" id="btnCrear"></i>
           </li>
         </ul>
       </nav>
@@ -98,7 +94,7 @@
           />
           <h2>Intenta con otra búsqueda.</h2>
         </div>
-        <a class="vermas" id="ver-mas-busqueda">VER MAS</a>
+        <a class="boton1" id="ver-mas-busqueda">VER MAS</a>
       </section>
 
       <!-- Favoritos -->
@@ -115,7 +111,7 @@
             "¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"
           </h2>
         </div>
-        <a class="vermas" id="ver-mas-fav">VER MAS</a>
+        <a class="boton1" id="ver-mas-fav">VER MAS</a>
       </section>
 
       <!-- Mis Gifos -->
@@ -130,7 +126,36 @@
           />
           <h2>¡Anímate a crear tu primer GIFO!</h2>
         </div>
-        <a class="vermas" id="ver-mas-misGifos">VER MAS</a>
+        <a class="boton1" id="ver-mas-misGifos">VER MAS</a>
+      </section>
+
+      <!-- Crear Gifos -->
+      <section id="sec-crear" class="hidden">
+        <div class="camara-full">
+          <div class="camara"></div>
+          <div class="luz-cam"></div>
+        </div>
+        <div class="crear-main">
+          <div class="recuadro centered">
+            <div class="creacion centered">
+              <h2 class="color1">
+              Aquí podrás <br> crear tus propios <span class="color2">GIFOS</span>
+              </h2>
+              <p>¡Crea tu GIFO en sólo 3 pasos! <br> (sólo necesitas una cámara para grabar un video)</p>
+            </div>
+          </div>
+          <div class="barra-info-crear">
+            <p class="aux"></p>
+            <div class="pasos-crear">
+          <p class="paso-a-paso">1</p>
+          <p class="paso-a-paso">2</p>
+          <p class="paso-a-paso">3</p>
+          </div>
+          <p class="detalle-subida">Prueba</p></div>
+          <div class="linea-base-crear"></div>
+          <a class="boton1">COMENZAR</a>
+        </div>
+        <div class="pelicula"></div>
       </section>
 
       <!-- Trending gifs -->

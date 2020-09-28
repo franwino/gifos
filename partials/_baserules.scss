@@ -55,3 +55,9 @@ p {
   height: 0.3125rem;
   background-color: var(--main-color-bg);
 }
+
+.centered{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

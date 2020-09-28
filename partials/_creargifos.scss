@@ -1,0 +1,81 @@
+.camara-full {
+  display: flex;
+}
+.camara {
+  height: 163px;
+  width: 123px;
+  background-image: url("assets/camara.svg");
+  .dark & {
+    background-image: url("assets/camara-modo-noc.svg");
+  }
+}
+.luz-cam {
+  height: 151px;
+  width: 70px;
+  background-image: url("assets/element-luz-camara.svg");
+  transform: translate(1px, 20px);
+}
+.pelicula {
+  height: 89px;
+  width: 142px;
+  background-image: url("assets/pelicula.svg");
+  .dark & {
+    background-image: url("assets/pelicula-modo-noc.svg");
+  }
+}
+
+#sec-crear {
+  padding: 5px 11.6vw 25px 10.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.crear-main {
+  width: 47.8vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recuadro {
+  width: 100%;
+  /* alto fijo para maquetado */
+  height: 390px;
+  border: 1px solid var(--main-color);
+  padding: 20px;
+}
+
+.creacion {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  text-align: center;
+  h2 {
+    flex-direction: column;
+  }
+}
+
+.barra-info-crear {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pasos-crear {
+  width: 10.2vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.paso-a-paso {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--main-color);
+  border-radius: 50%;
+  color: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

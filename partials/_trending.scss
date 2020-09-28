@@ -29,6 +29,7 @@
   width: 100%;
 }
 
+/* Grilla con trending gifs */
 .trending-gifs {
   width: 100%;
   display: flex;
@@ -42,6 +43,13 @@
     .gif {
       width: 243px;
       height: 187px;
+    }
+    &.max {
+      .gif {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
 }
@@ -72,14 +80,28 @@
   }
   #trendLbtn {
     background-image: url("assets/button-slider-left.svg");
+    .dark & {
+      background-image: url("assets/button-slider-left-md-noct.svg");
+    }
     &:hover {
       background-image: url("assets/button-slider-left-hover.svg");
+      .dark & {
+        /* Cambiar por el asset correspondiente */
+        background-image: url("assets/button-slider-left-hover.svg");
+      }
     }
   }
   #trendRbtn {
     background-image: url("assets/button-slider-right.svg");
+    .dark & {
+      background-image: url("assets/button-slider-right-md-noct.svg");
+    }
     &:hover {
       background-image: url("assets/button-slider-right-hover.svg");
+      .dark & {
+        /* Cambiar por el asset correspondiente */
+        background-image: url("assets/button-slider-right-hover.svg");
+      }
     }
   }
 }
