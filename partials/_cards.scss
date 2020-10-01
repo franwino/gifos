@@ -52,6 +52,7 @@
         height: 36px;
         &:hover {
           opacity: 1;
+          cursor: pointer;
         }
       }
     }
@@ -80,7 +81,7 @@
       display: flex;
       opacity: 1;
       column-gap: 29px;
-      .btn-download{
+      .btn-download {
         margin-left: 20px;
       }
       .btn-max {
@@ -88,9 +89,15 @@
       }
     }
     .close-max {
+      background-image: url("assets/close.svg");
+      .dark &{
+        background-image: url("assets/close-modo-noct.svg");
+      }
+      height: 14px;
+      width: 14px;
       align-self: flex-end;
-      margin-top: 11%;
-      margin-bottom: 80px;
+      margin-top: clamp(5px, 11vh, 66px);
+      margin-bottom: clamp(5px, 10vh, 80px);
       color: var(--main-color);
     }
   }

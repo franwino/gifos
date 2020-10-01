@@ -74,6 +74,9 @@
   width: 100%;
   display: flex;
   margin: 10px 14.6px 10px 23px;
+  &:hover{
+    cursor: pointer;
+  }
   i {
     width: 1rem;
     height: 1rem;
@@ -124,8 +127,11 @@
   }
   p {
     font-size: 0.875rem;
-    font-weight: medium;
+    font-weight: 500;
     text-transform: capitalize;
+  }
+  .trend{
+    cursor: pointer;
   }
 }
 

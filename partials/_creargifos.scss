@@ -10,7 +10,7 @@
   }
 }
 .luz-cam {
-  height: 151px;
+  height: 130px;
   width: 70px;
   background-image: url("assets/element-luz-camara.svg");
   transform: translate(1px, 20px);
@@ -39,8 +39,9 @@
 }
 
 .recuadro {
-  width: 100%;
-  /* alto fijo para maquetado */
+  /* width: 100%; */
+  /* medidas fijas para maquetado */
+  width: 688px;
   height: 390px;
   border: 1px solid var(--main-color);
   padding: 20px;

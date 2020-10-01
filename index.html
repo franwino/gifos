@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <!-- <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap');
+      </style> -->
   </head>
 
   <body>
@@ -18,7 +21,7 @@
       <div class="barra-inicio-fin" id="barra-inicio"></div>
       <nav id="navbar">
         <div class="barra" id="barra">
-          <picture id="btnHome">
+          <picture id="btnHome" onclick="menuHome()">
             <source
               srcset="assets/logo-desktop.svg"
               media="(min-width:768px)" />
@@ -28,19 +31,19 @@
         </div>
         <ul class="menu_list" id="menu">
           <li>
-            <a href="" id="btnDarkMode">Modo Nocturno</a>
+            <a id="btnDarkMode" onclick="">Modo Nocturno</a>
             <hr class="separador-menu" />
           </li>
           <li>
-            <a href="" id="btnFav">Favoritos</a>
+            <a id="btnFav" onclick="menuFavoritos(this)">Favoritos</a>
             <hr class="separador-menu" />
           </li>
           <li>
-            <a href="" id="btnMis">Mis GIFOS</a>
+            <a id="btnMis" onclick="menuMisGifos(this)">Mis GIFOS</a>
             <hr class="separador-menu" />
           </li>
           <li>
-            <div class="crear_gifos" id="btnCrear"></i>
+            <div class="crear_gifos" id="btnCrear" onclick="menuCrear(this)"></div>
           </li>
         </ul>
       </nav>
@@ -83,7 +86,6 @@
 
       <!-- Resultados de la busqueda -->
       <section id="seccion-busqueda" class="tab hidden">
-        <a id="goto-search" style="position: relative; top: -100px"></a>
         <div class="sec-separator"></div>
         <div class="secc-header" id="title-busq">Test</div>
         <div class="grilla" id="rdo-busqueda"></div>
@@ -94,7 +96,7 @@
           />
           <h2>Intenta con otra búsqueda.</h2>
         </div>
-        <a class="boton1" id="ver-mas-busqueda">VER MAS</a>
+        <a class="boton1" id="ver-mas-busqueda" onclick="masSearch()">VER MAS</a>
       </section>
 
       <!-- Favoritos -->
@@ -111,7 +113,7 @@
             "¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"
           </h2>
         </div>
-        <a class="boton1" id="ver-mas-fav">VER MAS</a>
+        <a class="boton1 hidden" id="ver-mas-fav" onclick="masFavs()">VER MAS</a>
       </section>
 
       <!-- Mis Gifos -->

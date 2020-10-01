@@ -36,6 +36,7 @@ body {
 a {
   color: var(--main-color);
   text-decoration: none;
+  cursor: pointer;
 }
 
 p {
@@ -87,7 +88,9 @@ p {
 }
 
 #main-header .logo {
-  padding-left: 5.9vw;
+  margin-left: 5.9vw;
+  width: 56px;
+  height: 49px;
   cursor: pointer;
 }
 
@@ -201,7 +204,6 @@ p {
   #main-header .logo {
     width: 59.1px;
     height: 59.1px;
-    padding: 0;
     margin: 18px 0 12.9px 10.8vw;
   }
   #main-header .menu_list {
@@ -328,6 +330,7 @@ p {
 
 .gif-container .card-hover .card-btns img:hover {
   opacity: 1;
+  cursor: pointer;
 }
 
 .gif-container.max {
@@ -376,11 +379,18 @@ p {
 }
 
 .gif-container.max .close-max {
+  background-image: url("assets/close.svg");
+  height: 14px;
+  width: 14px;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-top: 11%;
-  margin-bottom: 80px;
+  margin-top: clamp(5px, 11vh, 66px);
+  margin-bottom: clamp(5px, 10vh, 80px);
   color: var(--main-color);
+}
+
+.dark .gif-container.max .close-max {
+  background-image: url("assets/close-modo-noct.svg");
 }
 
 /* Maximizado */
@@ -506,9 +516,6 @@ p {
   cursor: pointer;
 }
 
-/* #seccion-busqueda {
-
-} */
 .contenido-vacio {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -644,6 +651,10 @@ p {
   margin: 10px 14.6px 10px 23px;
 }
 
+.autocomplete-field:hover {
+  cursor: pointer;
+}
+
 .autocomplete-field i {
   width: 1rem;
   height: 1rem;
@@ -715,8 +726,12 @@ p {
 
 .trending_themes p {
   font-size: 0.875rem;
-  font-weight: medium;
+  font-weight: 500;
   text-transform: capitalize;
+}
+
+.trending_themes .trend {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 1000px) {
@@ -890,7 +905,7 @@ p {
 }
 
 .luz-cam {
-  height: 151px;
+  height: 130px;
   width: 70px;
   background-image: url("assets/element-luz-camara.svg");
   -webkit-transform: translate(1px, 20px);
@@ -935,8 +950,9 @@ p {
 }
 
 .recuadro {
-  width: 100%;
-  /* alto fijo para maquetado */
+  /* width: 100%; */
+  /* medidas fijas para maquetado */
+  width: 688px;
   height: 390px;
   border: 1px solid var(--main-color);
   padding: 20px;

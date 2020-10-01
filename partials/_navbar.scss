@@ -15,7 +15,9 @@
     align-items: center;
   }
   .logo {
-    padding-left: 5.9vw;
+    margin-left: 5.9vw;
+    width: 56px;
+    height: 49px;
     cursor: pointer;
   }
   .menu_list {
@@ -105,7 +107,6 @@
     .logo {
       width: 59.1px;
       height: 59.1px;
-      padding: 0;
       margin: 18px 0 12.9px 10.8vw;
     }
     .menu_list {
