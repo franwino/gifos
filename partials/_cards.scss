@@ -55,6 +55,11 @@
           cursor: pointer;
         }
       }
+      .isFav {
+        background-color: #fff;
+        border-radius: 6px;
+        padding: 8px 7px;
+      }
     }
   }
 
@@ -90,7 +95,7 @@
     }
     .close-max {
       background-image: url("assets/close.svg");
-      .dark &{
+      .dark & {
         background-image: url("assets/close-modo-noct.svg");
       }
       height: 14px;

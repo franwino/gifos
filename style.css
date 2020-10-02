@@ -333,6 +333,12 @@ p {
   cursor: pointer;
 }
 
+.gif-container .card-hover .card-btns .isFav {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 8px 7px;
+}
+
 .gif-container.max {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -578,8 +584,16 @@ p {
   color: #9cafc3;
 }
 
+#icono-lupa {
+  cursor: pointer;
+}
+
 #buscarborrar {
   color: var(--main-color);
+}
+
+#buscarborrar.fa-times {
+  cursor: pointer;
 }
 
 .input-busqueda {
@@ -750,6 +764,7 @@ p {
   }
 }
 
+/* Seccion de gifs trending */
 .trending {
   background-color: var(--bg-trending);
   display: -webkit-box;
@@ -792,7 +807,7 @@ p {
   width: 100%;
 }
 
-/* Grilla con trending gifs */
+/* Grilla con gifs */
 .trending-gifs {
   width: 100%;
   display: -webkit-box;
@@ -826,11 +841,11 @@ p {
         -ms-flex-pack: justify;
             justify-content: space-between;
     overflow: visible;
-    width: 77vw;
+    width: 75.8vw;
     padding: 0 1.6vw;
   }
   .trending-gifs .gif-container .gif {
-    width: 21.9vw;
+    width: 21vw;
     height: 16.9vw;
   }
   #menu-trending {
@@ -849,32 +864,21 @@ p {
     display: block;
     width: 40px;
     height: 40px;
-  }
-  #trendLbtn {
     background-image: url("assets/button-slider-left.svg");
   }
-  .dark #trendLbtn {
+  .dark .slider {
     background-image: url("assets/button-slider-left-md-noct.svg");
   }
-  #trendLbtn:hover {
+  .slider:hover {
     background-image: url("assets/button-slider-left-hover.svg");
   }
-  .dark #trendLbtn:hover {
+  .dark .slider:hover {
     /* Cambiar por el asset correspondiente */
     background-image: url("assets/button-slider-left-hover.svg");
   }
   #trendRbtn {
-    background-image: url("assets/button-slider-right.svg");
-  }
-  .dark #trendRbtn {
-    background-image: url("assets/button-slider-right-md-noct.svg");
-  }
-  #trendRbtn:hover {
-    background-image: url("assets/button-slider-right-hover.svg");
-  }
-  .dark #trendRbtn:hover {
-    /* Cambiar por el asset correspondiente */
-    background-image: url("assets/button-slider-right-hover.svg");
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
   }
 }
 
@@ -950,10 +954,8 @@ p {
 }
 
 .recuadro {
-  /* width: 100%; */
-  /* medidas fijas para maquetado */
-  width: 688px;
-  height: 390px;
+  width: 100%;
+  height: 100%;
   border: 1px solid var(--main-color);
   padding: 20px;
 }

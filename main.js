@@ -4,6 +4,8 @@ stickySearch();
 modoNocturno();
 autocomplete();
 trendingSearchs();
+let trendOffset = 0;
+let totalTrends = 0;
 trendingGifs();
 
 /* Mostrar/Ocultar elementos del DOM por id */
@@ -193,6 +195,14 @@ function masFavs() {
     grillaFav.innerHTML += renderGif(favs[favsShown]);
     favsShown++;
   }
+  const favGifs = grillaFav.querySelectorAll(".gif-container");
+  for (const gif of favGifs) {
+    const btn = gif.querySelector(".btn-fav");
+    btn.classList.add("isFav");
+    btn.src = "assets/icon-fav-active.svg";
+    btn.setAttribute("onclick", `borrarFav("${gif.id}")`);
+  }
+  /* mostrar/ocultar boton de ver mas */
   const btn = document.getElementById("ver-mas-fav");
   if (favsShown >= favs.length) {
     btn.classList.add("hidden");
@@ -201,23 +211,53 @@ function masFavs() {
   }
 }
 
+function guardarFavs() {
+  localStorage.setItem("favs", JSON.stringify(favs));
+}
+
+function favIndex(id) {
+  let index = -1;
+  for (let i = 0; i < favs.length; i++) {
+    if (favs[i].id === id) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
 /* Favoritear */
 function fav(id, downsized, hires, user, title) {
-  const datos = {
-    id: id,
-    images: {
-      downsized: {
-        url: downsized,
+  if (favIndex(id) === -1) {
+    const datos = {
+      id: id,
+      images: {
+        downsized: {
+          url: downsized,
+        },
+        downsized_large: {
+          url: hires,
+        },
       },
-      downsized_large: {
-        url: hires,
-      },
-    },
-    username: user,
-    title: title,
-  };
-  favs.push(datos);
-  localStorage.setItem("favs", JSON.stringify(favs));
+      username: user,
+      title: title,
+    };
+    favs.push(datos);
+    const gif = document.getElementById(id);
+    const btn = gif.querySelector(".btn-fav");
+    btn.classList.add("isFav");
+    btn.src = "assets/icon-fav-active.svg";
+  }
+  guardarFavs();
+  if (document.getElementById("btnFav").classList.contains("active")) {
+    renderFavs();
+  }
+}
+
+function borrarFav(id) {
+  const index = favIndex(id);
+  favs.splice(index, 1);
+  guardarFavs();
   if (document.getElementById("btnFav").classList.contains("active")) {
     renderFavs();
   }
@@ -248,8 +288,15 @@ function menuCrear(elem) {
 }
 
 /* Descragar Gif */
-function download(id) {
-  console.log(id);
+function download(url, title) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = title + ".gif";
+  a.about = "_blank";
+  console.log(a);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 /* Maximizar GIF */
@@ -292,7 +339,7 @@ function renderGif(gif) {
         </div>
         <div class="card-btns">
           <img onclick='fav("${gif.id}","${gif.images.downsized.url}}","${gif.images.downsized_large.url}}","${user}","${titulo}")' class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img onclick='download("${gif.id}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img onclick='download("${gif.images.downsized_large.url}", "${titulo}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
           <img onclick='toggleMax("${gif.id}")' class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
@@ -341,6 +388,7 @@ function doSearch(query) {
       } else {
         hide("rdo-busqueda");
         unhide("busqueda-vacia");
+        hide("ver-mas-busqueda");
       }
     })
     .catch((error) => console.log("error:", error));
@@ -356,8 +404,20 @@ function autocomplete() {
   const input = document.getElementById("search");
   const btn = document.getElementById("buscarborrar");
   const lista = document.getElementById("autocomplete");
+  const icono = document.getElementById("icono-lupa");
   function limpiarGrilla() {
     lista.innerHTML = "";
+    icono.classList.add("invisible");
+    btn.classList.add("fa-search");
+    btn.classList.remove("fa-times");
+    const div = document.getElementsByClassName("search-div");
+    div[0].classList.add("invisible");
+  }
+  function newSearch(input) {
+    searchOffset = 0;
+    doSearch(input.value);
+    input.value = "";
+    limpiarGrilla();
   }
   function request(query) {
     const url =
@@ -376,16 +436,12 @@ function autocomplete() {
           container.className = "autocomplete-field";
           container.appendChild(img);
           container.appendChild(el);
-          el.addEventListener("click", (e) => {
+          container.addEventListener("click", (e) => {
             input.value = data.data[i].name;
-            searchOffset = 0;
-            doSearch(input.value);
-            input.value = "";
-            limpiarGrilla();
+            newSearch(input);
           });
           lista.appendChild(container);
         }
-        const icono = document.getElementById("icono-lupa");
         if (query != "") {
           icono.classList.remove("invisible");
           btn.classList.remove("fa-search");
@@ -395,6 +451,7 @@ function autocomplete() {
           btn.classList.add("fa-search");
           btn.classList.remove("fa-times");
         }
+
         const div = document.getElementsByClassName("search-div");
         if (lista.childElementCount != 0) {
           div[0].classList.remove("invisible");
@@ -405,6 +462,9 @@ function autocomplete() {
       .catch((error) => console.log("error:", error));
   }
 
+  icono.addEventListener("click", (e) => {
+    newSearch(input);
+  });
   btn.addEventListener("click", (e) => {
     input.value = "";
     limpiarGrilla();
@@ -415,10 +475,7 @@ function autocomplete() {
   input.addEventListener("keydown", (e) => {
     if (input.value !== "" && e.key == "Enter") {
       e.preventDefault();
-      searchOffset = 0;
-      doSearch(input.value);
-      input.value = "";
-      limpiarGrilla();
+      newSearch(input);
     }
   });
 }
@@ -451,10 +508,10 @@ function trendingSearchs() {
 }
 
 /* Trending GIFs */
+
 function trendingGifs() {
   const limit = 3;
-  let offset = 0;
-  const url = `https://api.giphy.com/v1/gifs/trending${apikey}&limit=${limit}&offset=${offset}`;
+  const url = `https://api.giphy.com/v1/gifs/trending${apikey}&limit=${limit}&offset=${trendOffset}`;
 
   fetch(url)
     .then((response) => response.json())
@@ -462,6 +519,15 @@ function trendingGifs() {
       const grilla = renderGrilla(data.data);
       const container = document.getElementById("trending-gifs");
       container.innerHTML = grilla;
+      totalTrends = data.pagination.total_count;
     })
     .catch((error) => console.log("error:", error));
+}
+
+function trendSlider(offset) {
+  if (trendOffset + offset >= 0) {
+    trendOffset += offset;
+    trendingGifs();
+  }
+  console.log(trendOffset);
 }

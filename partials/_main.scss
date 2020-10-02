@@ -29,8 +29,15 @@
   color: #9cafc3;
 }
 
+#icono-lupa{
+  cursor: pointer;
+}
+
 #buscarborrar {
   color: var(--main-color);
+  &.fa-times{
+    cursor: pointer;
+  }
 }
 
 .input-busqueda {

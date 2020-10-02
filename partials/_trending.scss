@@ -1,3 +1,4 @@
+/* Seccion de gifs trending */
 .trending {
   background-color: var(--bg-trending);
   display: flex;
@@ -25,11 +26,12 @@
     }
   }
 }
+
 #menu-trending {
   width: 100%;
 }
 
-/* Grilla con trending gifs */
+/* Grilla con gifs */
 .trending-gifs {
   width: 100%;
   display: flex;
@@ -58,11 +60,11 @@
   .trending-gifs {
     justify-content: space-between;
     overflow: visible;
-    width: 77vw;
+    width: 75.8vw;
     padding: 0 1.6vw;
     .gif-container {
       .gif {
-        width: 21.9vw;
+        width: 21vw;
         height: 16.9vw;
       }
     }
@@ -77,8 +79,6 @@
     display: block;
     width: 40px;
     height: 40px;
-  }
-  #trendLbtn {
     background-image: url("assets/button-slider-left.svg");
     .dark & {
       background-image: url("assets/button-slider-left-md-noct.svg");
@@ -92,17 +92,7 @@
     }
   }
   #trendRbtn {
-    background-image: url("assets/button-slider-right.svg");
-    .dark & {
-      background-image: url("assets/button-slider-right-md-noct.svg");
-    }
-    &:hover {
-      background-image: url("assets/button-slider-right-hover.svg");
-      .dark & {
-        /* Cambiar por el asset correspondiente */
-        background-image: url("assets/button-slider-right-hover.svg");
-      }
-    }
+    transform: rotate(180deg);
   }
 }
 
