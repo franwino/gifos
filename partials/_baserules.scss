@@ -96,3 +96,19 @@ p {
 .r270 {
   transform: rotate(270deg);
 }
+
+/* animacion - giro continuo */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}

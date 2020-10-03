@@ -1,4 +1,4 @@
-const apikey = "KppHsCiWvApmVnuPSw2XE7mi3z6XR7s9";
+const apikey = "rj779YhmTNApuXDj0qRBcrr9Q2r6KPFU";
 /* Ejecuta las funciones necesarias al cargar el sitio */
 stickySearch();
 modoNocturno();
@@ -167,9 +167,13 @@ function menu(elem) {
       break;
     case "btnCrear":
       op = "sec-crear";
+      crearGifo();
       break;
   }
   selSec(op);
+  if (op !== "btnCrear" && streamCam !== undefined) {
+    streamCam.getTracks().forEach((track) => track.stop());
+  }
   makeActive(elem);
   const menu = document.getElementById("menu");
   if (menu.classList.contains("open")) {

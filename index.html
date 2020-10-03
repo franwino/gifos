@@ -136,7 +136,9 @@
           />
           <h2>¡Anímate a crear tu primer GIFO!</h2>
         </div>
-        <a class="boton1 hidden" id="ver-mas-misGifos">VER MAS</a>
+        <a class="boton1 hidden" id="ver-mas-misGifos" onclick="masGifos()"
+          >VER MAS</a
+        >
       </section>
 
       <!-- Crear Gifos -->
@@ -174,11 +176,11 @@
               </div>
               <video src="" id="video" class="hidden"></video>
               <div class="msj-crear hidden" id="msj-crear-1">
-                <img src="assets/loader.svg" alt="Cargando" />
+                <img class="loader" src="assets/loader.svg" alt="Subiendo gif" />
                 <p>Estamos subiendo tu GIFO</p>
               </div>
               <div class="msj-crear hidden" id="msj-crear-2">
-                <img src="assets/check.svg" alt="Listo" />
+                <img src="assets/check.svg" alt="Subido con exito" />
                 <p>GIFO subido con éxito</p>
               </div>
             </div>
@@ -194,8 +196,8 @@
               <p class="paso-a-paso" id="paso3">3</p>
             </div>
             <div id="detalle-subida">
-              <p class="hidden" id="contador">00:00</p>
-              <a class="hidden" id="repetir" onclick="grabar()"
+              <p class="hidden" id="contador"></p>
+              <a class="hidden" id="repetir" onclick="repetir()"
                 >REPETIR CAPTURA</a
               >
             </div>
