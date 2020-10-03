@@ -80,6 +80,7 @@
     width: 40px;
     height: 40px;
     background-image: url("assets/button-slider-left.svg");
+    cursor: pointer;
     .dark & {
       background-image: url("assets/button-slider-left-md-noct.svg");
     }
@@ -90,9 +91,6 @@
         background-image: url("assets/button-slider-left-hover.svg");
       }
     }
-  }
-  #trendRbtn {
-    transform: rotate(180deg);
   }
 }
 

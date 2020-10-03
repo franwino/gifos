@@ -1,11 +1,11 @@
-const apikey = "?api_key=KppHsCiWvApmVnuPSw2XE7mi3z6XR7s9";
+const apikey = "KppHsCiWvApmVnuPSw2XE7mi3z6XR7s9";
 /* Ejecuta las funciones necesarias al cargar el sitio */
 stickySearch();
 modoNocturno();
 autocomplete();
 trendingSearchs();
-let trendOffset = 0;
-let totalTrends = 0;
+let gifShown = 0;
+let trendShow = 0;
 trendingGifs();
 
 /* Mostrar/Ocultar elementos del DOM por id */
@@ -33,12 +33,24 @@ function makeActive(elem) {
   quitarActive();
   elem.classList.add("active");
 }
+/* Mostrar solo la seccion elegida */
+function selSec(id) {
+  hide("inicio");
+  hide("seccion-busqueda");
+  hide("sec-misGifos");
+  hide("sec-favs");
+  hide("sec-crear");
+  unhide("sec-trending");
+  if (id == "sec-crear") {
+    hide("sec-trending");
+  }
+  unhide(id);
+}
 
 /* Obtener coordenadas de un elemento */
 function getPos(el) {
   var xPos = 0;
   var yPos = 0;
-
   while (el) {
     if (el.tagName == "BODY") {
       // deal with browser quirks with body/window/document and page scroll
@@ -87,6 +99,7 @@ function stickySearch() {
 function menuHamburguesa() {
   if (window.innerWidth < 768) {
     const burger = document.getElementById("btn-burger");
+    const menu = document.getElementById("menu");
     menu.classList.toggle("open");
     if (menu.classList.contains("open")) {
       burger.className = "fas fa-times";
@@ -137,45 +150,62 @@ function modoNocturno() {
   });
 }
 
-/* Botón Home */
-function menuHome() {
-  unhide("inicio");
-  hide("seccion-busqueda");
-  hide("sec-misGifos");
-  hide("sec-favs");
-  hide("sec-crear");
-  quitarActive();
+/* Botones del menu */
+function menu(elem) {
+  let op;
+  switch (elem.id) {
+    case "btnHome":
+      op = "inicio";
+      break;
+    case "btnFav":
+      op = "sec-favs";
+      renderFavs();
+      break;
+    case "btnMis":
+      op = "sec-misGifos";
+      renderMisGifos();
+      break;
+    case "btnCrear":
+      op = "sec-crear";
+      break;
+  }
+  selSec(op);
+  makeActive(elem);
+  const menu = document.getElementById("menu");
   if (menu.classList.contains("open")) {
     menuHamburguesa();
   }
   window.scrollTo(0, 0);
 }
 
-let favs = [];
-favs = traerFavoritos();
-/* Buscar favs en localStorage */
-function traerFavoritos() {
-  if (localStorage.getItem("favs") != null) {
-    favs = JSON.parse(localStorage.getItem("favs"));
+/* buscar index de gif en array */
+function searchById(id, array) {
+  let index = -1;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id === id) {
+      index = i;
+      break;
+    }
   }
-  return favs;
+  return index;
+}
+
+/* Traer de localStorage por key*/
+function getLocal(id) {
+  let items = [];
+  if (localStorage.getItem(id) != null) {
+    items = JSON.parse(localStorage.getItem(id));
+  }
+  return items;
+}
+/* Guardar array en localStorage */
+function setLocal(id, array) {
+  localStorage.setItem(id, JSON.stringify(array));
 }
 
 /* Mostrar favoritos */
-function menuFavoritos(elem) {
-  hide("inicio");
-  hide("seccion-busqueda");
-  hide("sec-misGifos");
-  hide("sec-crear");
-  unhide("sec-favs");
-  menuHamburguesa();
-  makeActive(elem);
-  renderFavs();
-  window.scrollTo(0, 0);
-}
-let favsShown = 0;
 function renderFavs() {
-  favsShown = 0;
+  gifShown = 0;
   const grillaFav = document.getElementById("rdo-favs");
   grillaFav.innerHTML = "";
   if (favs.length !== 0) {
@@ -187,13 +217,12 @@ function renderFavs() {
     unhide("fav-vacia");
   }
 }
-
 function masFavs() {
   const grillaFav = document.getElementById("rdo-favs");
-  let n = Math.min(favs.length - favsShown, 12);
+  let n = Math.min(favs.length - gifShown, 12);
   for (let i = 0; i < n; i++) {
-    grillaFav.innerHTML += renderGif(favs[favsShown]);
-    favsShown++;
+    grillaFav.innerHTML += renderGif(favs[gifShown]);
+    gifShown++;
   }
   const favGifs = grillaFav.querySelectorAll(".gif-container");
   for (const gif of favGifs) {
@@ -204,31 +233,17 @@ function masFavs() {
   }
   /* mostrar/ocultar boton de ver mas */
   const btn = document.getElementById("ver-mas-fav");
-  if (favsShown >= favs.length) {
+  if (gifShown >= favs.length) {
     btn.classList.add("hidden");
   } else {
     btn.classList.remove("hidden");
   }
 }
 
-function guardarFavs() {
-  localStorage.setItem("favs", JSON.stringify(favs));
-}
-
-function favIndex(id) {
-  let index = -1;
-  for (let i = 0; i < favs.length; i++) {
-    if (favs[i].id === id) {
-      index = i;
-      break;
-    }
-  }
-  return index;
-}
-
-/* Favoritear */
+let favs = getLocal("favs");
+/* Agregar/quitar favs */
 function fav(id, downsized, hires, user, title) {
-  if (favIndex(id) === -1) {
+  if (searchById(id, favs) === -1) {
     const datos = {
       id: id,
       images: {
@@ -248,56 +263,32 @@ function fav(id, downsized, hires, user, title) {
     btn.classList.add("isFav");
     btn.src = "assets/icon-fav-active.svg";
   }
-  guardarFavs();
+  setLocal("favs", favs);
   if (document.getElementById("btnFav").classList.contains("active")) {
     renderFavs();
   }
 }
-
 function borrarFav(id) {
-  const index = favIndex(id);
+  const index = searchById(id, favs);
   favs.splice(index, 1);
-  guardarFavs();
+  setLocal("favs", favs);
   if (document.getElementById("btnFav").classList.contains("active")) {
     renderFavs();
   }
 }
 
-/* Menu - Mis Gifos */
-function menuMisGifos(elem) {
-  hide("inicio");
-  hide("seccion-busqueda");
-  hide("sec-favs");
-  hide("sec-crear");
-  unhide("sec-misGifos");
-  menuHamburguesa();
-  makeActive(elem);
-  window.scrollTo(0, 0);
-}
-
-/* Menu - Crear nuevos Gifos */
-function menuCrear(elem) {
-  hide("inicio");
-  hide("seccion-busqueda");
-  hide("sec-favs");
-  hide("sec-misGifos");
-  unhide("sec-crear");
-  menuHamburguesa();
-  makeActive(elem);
-  window.scrollTo(0, 0);
-}
-
-/* Descragar Gif */
+/* Descargar Gif */
 function download(url, title) {
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = title + ".gif";
-  a.about = "_blank";
-  console.log(a);
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  fetch(url)
+    .then((gif) => gif.blob())
+    .then((file) => invokeSaveAsDialog(file, title + ".gif"));
 }
+
+/* Ejemplo download
+async function descargarGif(gifImg, gifNombre) {
+  let blob = await fetch(gifImg).then(img => img.blob());;
+  invokeSaveAsDialog(blob, gifNombre + ".gif");
+} */
 
 /* Maximizar GIF */
 function toggleMax(id) {
@@ -347,7 +338,7 @@ function renderGif(gif) {
   return card;
 }
 
-/* Renderizar una grilla de gifs a partir de una busqueda */
+/* Renderizar una grilla de gifs a partir de un array */
 function renderGrilla(data) {
   let grilla = "";
   for (gif of data) {
@@ -357,11 +348,10 @@ function renderGrilla(data) {
 }
 
 /* Hacer la búsqueda y llamar a renderizarla */
-let searchOffset = 0;
 function doSearch(query) {
   const limit = 12;
-  let offset = searchOffset;
-  const url = `https://api.giphy.com/v1/gifs/search${apikey}&q=${query}&limit=${limit}&offset=${offset}&rating=pg-13&lang=es`;
+  let offset = gifShown;
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apikey}&q=${query}&limit=${limit}&offset=${offset}&rating=pg-13&lang=es`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -379,8 +369,8 @@ function doSearch(query) {
           container.innerHTML += grilla;
         }
         const btn = document.getElementById("ver-mas-busqueda");
-        searchOffset += limit;
-        if (searchOffset > data.pagination.total_count) {
+        gifShown += limit;
+        if (gifShown > data.pagination.total_count) {
           btn.classList.add("hidden");
         } else {
           btn.classList.remove("hidden");
@@ -393,7 +383,7 @@ function doSearch(query) {
     })
     .catch((error) => console.log("error:", error));
 }
-
+/* Ver mas resultados de la busqueda */
 function masSearch() {
   const query = document.getElementById("title-busq").textContent;
   doSearch(query);
@@ -414,14 +404,17 @@ function autocomplete() {
     div[0].classList.add("invisible");
   }
   function newSearch(input) {
-    searchOffset = 0;
+    gifShown = 0;
     doSearch(input.value);
     input.value = "";
     limpiarGrilla();
   }
   function request(query) {
     const url =
-      "https://api.giphy.com/v1/gifs/search/tags" + apikey + "&q=" + query;
+      "https://api.giphy.com/v1/gifs/search/tags?api_key=" +
+      apikey +
+      "&q=" +
+      query;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -481,13 +474,13 @@ function autocomplete() {
 }
 
 function trendSearch(query) {
-  searchOffset = 0;
+  gifShown = 0;
   doSearch(query);
 }
 
 /* Trending Searchs */
 function trendingSearchs() {
-  const url = "https://api.giphy.com/v1/trending/searches" + apikey;
+  const url = "https://api.giphy.com/v1/trending/searches?api_key=" + apikey;
 
   fetch(url)
     .then((response) => response.json())
@@ -508,10 +501,9 @@ function trendingSearchs() {
 }
 
 /* Trending GIFs */
-
 function trendingGifs() {
   const limit = 3;
-  const url = `https://api.giphy.com/v1/gifs/trending${apikey}&limit=${limit}&offset=${trendOffset}`;
+  const url = `https://api.giphy.com/v1/gifs/trending?api_key=${apikey}&limit=${limit}&offset=${trendShow}`;
 
   fetch(url)
     .then((response) => response.json())
@@ -519,15 +511,13 @@ function trendingGifs() {
       const grilla = renderGrilla(data.data);
       const container = document.getElementById("trending-gifs");
       container.innerHTML = grilla;
-      totalTrends = data.pagination.total_count;
     })
     .catch((error) => console.log("error:", error));
 }
 
 function trendSlider(offset) {
-  if (trendOffset + offset >= 0) {
-    trendOffset += offset;
+  if (trendShow + offset >= 0) {
+    trendShow += offset;
     trendingGifs();
   }
-  console.log(trendOffset);
 }

@@ -57,8 +57,42 @@ p {
   background-color: var(--main-color-bg);
 }
 
-.centered{
+.centered {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.boton1 {
+  margin-top: 4.87rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: 1px solid var(--main-color);
+  border-radius: 25px;
+  width: 127px;
+  height: 50px;
+  font: bold 0.8125rem $font-mont;
+  line-height: 1rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  &:hover {
+    color: var(--bg-color);
+    background-color: var(--main-color);
+    cursor: pointer;
+  }
+}
+
+/* Clases de rotacion */
+.r90 {
+  transform: rotate(90deg);
+}
+
+.r180 {
+  transform: rotate(180deg);
+}
+
+.r270 {
+  transform: rotate(270deg);
 }

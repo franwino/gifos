@@ -21,13 +21,17 @@
       <div class="barra-inicio-fin" id="barra-inicio"></div>
       <nav id="navbar">
         <div class="barra" id="barra">
-          <picture id="btnHome" onclick="menuHome()">
+          <picture id="btnHome" onclick="menu(this)">
             <source
               srcset="assets/logo-desktop.svg"
               media="(min-width:768px)" />
             <img src="assets/logo-mobile.svg" alt="inicio" class="logo"
           /></picture>
-          <i class="fas fa-bars" id="btn-burger" onclick="menuHamburguesa()"></i>
+          <i
+            class="fas fa-bars"
+            id="btn-burger"
+            onclick="menuHamburguesa()"
+          ></i>
         </div>
         <ul class="menu_list" id="menu">
           <li>
@@ -35,15 +39,15 @@
             <hr class="separador-menu" />
           </li>
           <li>
-            <a id="btnFav" onclick="menuFavoritos(this)">Favoritos</a>
+            <a id="btnFav" onclick="menu(this)">Favoritos</a>
             <hr class="separador-menu" />
           </li>
           <li>
-            <a id="btnMis" onclick="menuMisGifos(this)">Mis GIFOS</a>
+            <a id="btnMis" onclick="menu(this)">Mis GIFOS</a>
             <hr class="separador-menu" />
           </li>
           <li>
-            <div class="crear_gifos" id="btnCrear" onclick="menuCrear(this)"></div>
+            <div class="crear_gifos" id="btnCrear" onclick="menu(this)"></div>
           </li>
         </ul>
       </nav>
@@ -96,7 +100,9 @@
           />
           <h2>Intenta con otra búsqueda.</h2>
         </div>
-        <a class="boton1" id="ver-mas-busqueda" onclick="masSearch()">VER MAS</a>
+        <a class="boton1" id="ver-mas-busqueda" onclick="masSearch()"
+          >VER MAS</a
+        >
       </section>
 
       <!-- Favoritos -->
@@ -113,7 +119,9 @@
             "¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"
           </h2>
         </div>
-        <a class="boton1 hidden" id="ver-mas-fav" onclick="masFavs()">VER MAS</a>
+        <a class="boton1 hidden" id="ver-mas-fav" onclick="masFavs()"
+          >VER MAS</a
+        >
       </section>
 
       <!-- Mis Gifos -->
@@ -128,7 +136,7 @@
           />
           <h2>¡Anímate a crear tu primer GIFO!</h2>
         </div>
-        <a class="boton1" id="ver-mas-misGifos">VER MAS</a>
+        <a class="boton1 hidden" id="ver-mas-misGifos">VER MAS</a>
       </section>
 
       <!-- Crear Gifos -->
@@ -139,23 +147,61 @@
         </div>
         <div class="crear-main">
           <div class="recuadro centered">
-            <div class="creacion centered">
-              <h2 class="color1">
-              Aquí podrás <br> crear tus propios <span class="color2">GIFOS</span>
-              </h2>
-              <p>¡Crea tu GIFO en sólo 3 pasos! <br> (sólo necesitas una cámara para grabar un video)</p>
+            <div class="corners">
+              <div class="corner"></div>
+              <div class="corner r270"></div>
+            </div>
+            <div class="creacion centered" id="create">
+              <div id="msj-1">
+                <h2 class="color1">
+                  Aquí podrás <br />
+                  crear tus propios <span class="color2">GIFOS</span>
+                </h2>
+                <p>
+                  ¡Crea tu GIFO en sólo 3 pasos! <br />
+                  (sólo necesitas una cámara para grabar un video)
+                </p>
+              </div>
+              <div id="msj-2" class="hidden">
+                <h2 class="color1">
+                  ¿Nos das acceso <br />
+                  a tu cámara?
+                </h2>
+                <p>
+                  El acceso a tu camara será válido sólo <br />
+                  por el tiempo en el que estés creando el GIFO.
+                </p>
+              </div>
+              <video src="" id="video" class="hidden"></video>
+              <div class="msj-crear hidden" id="msj-crear-1">
+                <img src="assets/loader.svg" alt="Cargando" />
+                <p>Estamos subiendo tu GIFO</p>
+              </div>
+              <div class="msj-crear hidden" id="msj-crear-2">
+                <img src="assets/check.svg" alt="Listo" />
+                <p>GIFO subido con éxito</p>
+              </div>
+            </div>
+            <div class="corners">
+              <div class="corner r90"></div>
+              <div class="corner r180"></div>
             </div>
           </div>
           <div class="barra-info-crear">
-            <p class="aux"></p>
             <div class="pasos-crear">
-          <p class="paso-a-paso">1</p>
-          <p class="paso-a-paso">2</p>
-          <p class="paso-a-paso">3</p>
+              <p class="paso-a-paso" id="paso1">1</p>
+              <p class="paso-a-paso" id="paso2">2</p>
+              <p class="paso-a-paso" id="paso3">3</p>
+            </div>
+            <div id="detalle-subida">
+              <p class="hidden" id="contador">00:00</p>
+              <a class="hidden" id="repetir" onclick="grabar()"
+                >REPETIR CAPTURA</a
+              >
+            </div>
           </div>
-          <p class="detalle-subida">Prueba</p></div>
           <div class="linea-base-crear"></div>
-          <a class="boton1">COMENZAR</a>
+          <a class="boton1" id="btnPasosCrear" onclick="comenzar()">COMENZAR</a>
         </div>
         <div class="pelicula"></div>
       </section>
@@ -168,9 +214,13 @@
           <p>GIFOS de nuestra comunidad.</p>
         </div>
         <div id="menu-trending">
-          <div class="slider" id="trendLbtn" onclick=trendSlider(-3)></div>
+          <div class="slider" id="trendLbtn" onclick="trendSlider(-3)"></div>
           <div class="trending-gifs" id="trending-gifs"></div>
-          <div class="slider" id="trendRbtn" onclick=trendSlider(3)></div>
+          <div
+            class="slider r180"
+            id="trendRbtn"
+            onclick="trendSlider(3)"
+          ></div>
         </div>
       </section>
     </main>
@@ -194,6 +244,8 @@
       <p class="copyright">&copy; GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <div class="barra-inicio-fin"></div>
-    <script src="main.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="scripts/misGifos.js"></script>
   </body>
 </html>
