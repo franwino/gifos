@@ -288,12 +288,6 @@ function download(url, title) {
     .then((file) => invokeSaveAsDialog(file, title + ".gif"));
 }
 
-/* Ejemplo download
-async function descargarGif(gifImg, gifNombre) {
-  let blob = await fetch(gifImg).then(img => img.blob());;
-  invokeSaveAsDialog(blob, gifNombre + ".gif");
-} */
-
 /* Maximizar GIF */
 function toggleMax(id) {
   const elem = document.getElementById(id);

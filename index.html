@@ -35,19 +35,30 @@
         </div>
         <ul class="menu_list" id="menu">
           <li>
-            <a id="btnDarkMode" onclick="">Modo Nocturno</a>
+            <a id="btnDarkMode" class="underline-link" onclick=""
+              >Modo Nocturno</a
+            >
             <hr class="separador-menu" />
           </li>
           <li>
-            <a id="btnFav" onclick="menu(this)">Favoritos</a>
+            <a id="btnFav" class="underline-link" onclick="menu(this)"
+              >Favoritos</a
+            >
             <hr class="separador-menu" />
           </li>
           <li>
-            <a id="btnMis" onclick="menu(this)">Mis GIFOS</a>
+            <a id="btnMis" class="underline-link" onclick="menu(this)"
+              >Mis GIFOS</a
+            >
             <hr class="separador-menu" />
           </li>
           <li>
-            <div class="crear_gifos" id="btnCrear" onclick="menu(this)"></div>
+            <div
+              class="crear_gifos"
+              id="btnCrear"
+              class="underline-link"
+              onclick="menu(this)"
+            ></div>
           </li>
         </ul>
       </nav>
@@ -164,7 +175,7 @@
                   (sólo necesitas una cámara para grabar un video)
                 </p>
               </div>
-              <div id="msj-2" class="hidden">
+              <div id="msj-2">
                 <h2 class="color1">
                   ¿Nos das acceso <br />
                   a tu cámara?
@@ -174,14 +185,33 @@
                   por el tiempo en el que estés creando el GIFO.
                 </p>
               </div>
-              <video src="" id="video" class="hidden"></video>
-              <div class="msj-crear hidden" id="msj-crear-1">
-                <img class="loader" src="assets/loader.svg" alt="Subiendo gif" />
-                <p>Estamos subiendo tu GIFO</p>
-              </div>
-              <div class="msj-crear hidden" id="msj-crear-2">
-                <img src="assets/check.svg" alt="Subido con exito" />
-                <p>GIFO subido con éxito</p>
+              <div id="contenedor-gif-creado">
+                <video src="" id="video"></video>
+                <img src="" alt="Tu Gif" id="gif-listo" />
+                <div class="msj-crear" id="msj-crear-1">
+                  <img
+                    class="loader"
+                    src="assets/loader.svg"
+                    alt="Subiendo gif"
+                  />
+                  <p>Estamos subiendo tu GIFO</p>
+                </div>
+                <div class="msj-crear" id="msj-crear-2">
+                  <img src="assets/check.svg" alt="Subido con exito" />
+                  <p>GIFO subido con éxito</p>
+                  <div class="card-btns">
+                    <img
+                      src="assets/icon-download-hover.svg"
+                      alt="Descargar GIF"
+                      id="descargar-mi-gifo"
+                    />
+                    <img
+                      src="assets/icon-link-hover.svg"
+                      alt="URL del gif"
+                      id="link-mi-gifo"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="corners">
@@ -197,7 +227,7 @@
             </div>
             <div id="detalle-subida">
               <p class="hidden" id="contador"></p>
-              <a class="hidden" id="repetir" onclick="repetir()"
+              <a class="underline-link hidden" id="repetir" onclick="repetir()"
                 >REPETIR CAPTURA</a
               >
             </div>

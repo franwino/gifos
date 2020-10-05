@@ -123,15 +123,6 @@
           margin-top: 0;
         }
       }
-      a {
-        color: var(--main-color);
-        &:hover {
-          border-bottom: 2px solid #5ed7c6;
-        }
-        &.active {
-          color: #9cafc3;
-        }
-      }
     }
   }
   .crear_gifos {

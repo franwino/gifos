@@ -39,6 +39,18 @@ a {
   cursor: pointer;
 }
 
+.underline-link {
+  color: var(--main-color);
+}
+
+.underline-link:hover {
+  border-bottom: 2px solid #5ed7c6;
+}
+
+.underline-link.active {
+  color: #9cafc3;
+}
+
 p {
   color: var(--main-color);
 }
@@ -307,15 +319,6 @@ p {
   #main-header .menu_list li:first-child {
     margin-top: 0;
   }
-  #main-header .menu_list a {
-    color: var(--main-color);
-  }
-  #main-header .menu_list a:hover {
-    border-bottom: 2px solid #5ed7c6;
-  }
-  #main-header .menu_list a.active {
-    color: #9cafc3;
-  }
   .crear_gifos {
     display: block;
   }
@@ -351,6 +354,33 @@ p {
 .grilla .gif-container {
   width: 156px;
   height: 120px;
+}
+
+.card-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: clamp(0px, 21.5vw, 80px);
+}
+
+.card-btns img {
+  opacity: 0.6;
+  width: 36px;
+  height: 36px;
+}
+
+.card-btns img:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.card-btns .isFav {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 8px 7px;
 }
 
 /* Componente gif con datos */
@@ -392,33 +422,6 @@ p {
   font-weight: 400;
   margin-left: 6px;
   margin-bottom: 6px;
-}
-
-.gif-container .card-hover .card-btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: clamp(0px, 21.5vw, 80px);
-}
-
-.gif-container .card-hover .card-btns img {
-  opacity: 0.6;
-  width: 36px;
-  height: 36px;
-}
-
-.gif-container .card-hover .card-btns img:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
-.gif-container .card-hover .card-btns .isFav {
-  background-color: #fff;
-  border-radius: 6px;
-  padding: 8px 7px;
 }
 
 .gif-container.max {
@@ -1076,8 +1079,15 @@ p {
   line-height: 1.8125rem;
 }
 
-.creacion video {
-  width: 100%;
+.creacion #contenedor-gif-creado {
+  position: relative;
+  width: 33.33vw;
+  height: 320px;
+}
+
+.creacion #contenedor-gif-creado video,
+.creacion #contenedor-gif-creado #gif-listo {
+  width: 33vw;
   height: 100%;
 }
 
@@ -1085,6 +1095,7 @@ p {
   width: 100%;
   height: 100%;
   position: absolute;
+  top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1108,6 +1119,16 @@ p {
   text-align: center;
   line-height: 1.1875rem;
   margin-top: 14px;
+}
+
+.msj-crear .card-btns {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+}
+
+.msj-crear .card-btns img {
+  margin-left: 10px;
 }
 
 .loader {
@@ -1158,7 +1179,6 @@ p {
 #detalle-subida a {
   font-size: 0.8125rem;
   line-height: 1rem;
-  border-bottom: 2px solid #5ed7c6;
   text-transform: uppercase;
 }
 

@@ -85,9 +85,15 @@
     color: var(--main-color-2);
     line-height: 1.8125rem;
   }
-  video {
-    width: 100%;
-    height: 100%;
+  #contenedor-gif-creado {
+    position: relative;
+    width: 33.33vw;
+    height: 320px;
+    video,
+    #gif-listo {
+      width: 33vw;
+      height: 100%;
+    }
   }
 }
 
@@ -95,6 +101,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,6 +114,14 @@
     text-align: center;
     line-height: 1.1875rem;
     margin-top: 14px;
+  }
+  .card-btns {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    img {
+      margin-left: 10px;
+    }
   }
 }
 
@@ -144,7 +159,6 @@
   a {
     font-size: 0.8125rem;
     line-height: 1rem;
-    border-bottom: 2px solid #5ed7c6;
     text-transform: uppercase;
   }
 }

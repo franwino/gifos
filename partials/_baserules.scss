@@ -47,6 +47,16 @@ a {
   cursor: pointer;
 }
 
+.underline-link {
+  color: var(--main-color);
+  &:hover {
+    border-bottom: 2px solid #5ed7c6;
+  }
+  &.active {
+    color: #9cafc3;
+  }
+}
+
 p {
   color: var(--main-color);
 }

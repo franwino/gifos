@@ -11,7 +11,25 @@
     height: 120px;
   }
 }
-
+.card-btns {
+  display: flex;
+  align-items: center;
+  width: clamp(0px, 21.5vw, 80px);
+  img {
+    opacity: 0.6;
+    width: 36px;
+    height: 36px;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+  .isFav {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 8px 7px;
+  }
+}
 /* Componente gif con datos */
 .gif-container {
   position: relative;
@@ -40,25 +58,6 @@
         font-weight: 400;
         margin-left: 6px;
         margin-bottom: 6px;
-      }
-    }
-    .card-btns {
-      display: flex;
-      align-items: center;
-      width: clamp(0px, 21.5vw, 80px);
-      img {
-        opacity: 0.6;
-        width: 36px;
-        height: 36px;
-        &:hover {
-          opacity: 1;
-          cursor: pointer;
-        }
-      }
-      .isFav {
-        background-color: #fff;
-        border-radius: 6px;
-        padding: 8px 7px;
       }
     }
   }
