@@ -7,12 +7,14 @@ async function buscarCreados() {
   try {
     arrayMisGifos = [];
     misGifos = getLocal("mis");
-    const stringCreados = misGifos.join();
-    const url = `https://api.giphy.com/v1/gifs?api_key=${apikey}&ids=${stringCreados}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    for (const gif of data.data) {
-      arrayMisGifos.push(gif);
+    if (misGifos.length > 0) {
+      const stringCreados = misGifos.join();
+      const url = `https://api.giphy.com/v1/gifs?api_key=${apikey}&ids=${stringCreados}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      for (const gif of data.data) {
+        arrayMisGifos.push(gif);
+      }
     }
   } catch (error) {
     console.log("error:", error);
@@ -69,7 +71,7 @@ function borrarCreado(id) {
 
 function pasoActivo(paso) {
   const pasos = document.querySelectorAll(".paso-a-paso");
-  for (p of pasos) {
+  for (let p of pasos) {
     if (p.classList.contains("activo")) {
       p.classList.remove("activo");
       break;
@@ -193,7 +195,7 @@ async function subir() {
     const btnDw = document.getElementById("descargar-mi-gifo");
     btnDw.setAttribute(
       "onclick",
-      `download("${gifSubido.images.downsized_large.url}", "${gifSubido.title}")`
+      `download("${gif.images.original.webp}", "${gifSubido.title}")`
     );
   } catch (error) {
     console.log("error:", error);

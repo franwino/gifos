@@ -7,7 +7,8 @@ function modoNocturno() {
   }
   const body = document.getElementsByTagName("body")[0];
   function toggleMode(mode) {
-    if (mode == false) {
+    let newMode;
+    if (mode === false) {
       setColor("--main-color", "#ffffff");
       setColor("--main-color-bg", "#000000");
       setColor("--main-color-2", "#ffffff");
@@ -28,7 +29,7 @@ function modoNocturno() {
     }
     return newMode;
   }
-  if (localStorage.getItem("dark") != null) {
+  if (localStorage.getItem("dark") !== null) {
     darkMode = JSON.parse(localStorage.getItem("dark"));
   }
   darkMode = toggleMode(!darkMode);
@@ -41,13 +42,13 @@ function modoNocturno() {
 
 /* Mostrar/Ocultar elementos del DOM por id */
 function hide() {
-  for (arg of arguments) {
+  for (let arg of arguments) {
     const el = document.getElementById(arg);
     el.classList.add("hidden");
   }
 }
 function unhide() {
-  for (arg of arguments) {
+  for (let arg of arguments) {
     const el = document.getElementById(arg);
     el.classList.remove("hidden");
   }
@@ -56,7 +57,7 @@ function unhide() {
 /* Quitar clase active de todos los elementos */
 function quitarActive() {
   const active = document.querySelectorAll(".active");
-  for (elem of active) {
+  for (let elem of active) {
     if (elem.classList.contains("active")) {
       elem.classList.remove("active");
       break;
@@ -110,7 +111,7 @@ function searchById(id, array) {
 /* Traer de localStorage por key*/
 function getLocal(id) {
   let items = [];
-  if (localStorage.getItem(id) != null) {
+  if (localStorage.getItem(id) !== null) {
     items = JSON.parse(localStorage.getItem(id));
   }
   return items;

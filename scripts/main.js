@@ -128,16 +128,13 @@ function masFavs() {
 
 let favs = getLocal("favs");
 /* Agregar/quitar favs */
-function fav(id, downsized, hires, user, title) {
+function fav(id, url_normal, user, title) {
   if (searchById(id, favs) === -1) {
     const datos = {
       id: id,
       images: {
-        downsized: {
-          url: downsized,
-        },
-        downsized_large: {
-          url: hires,
+        original: {
+          webp: url_normal,
         },
       },
       username: user,
@@ -171,10 +168,6 @@ function toggleMax(id) {
   /* Muestro y habilito boton de cerrar */
   const close = elem.firstElementChild;
   close.classList.remove("hidden");
-  /* Al maximizar cambio la url por una de mejor calidad */
-  const img = close.nextElementSibling;
-  const newurl = elem.getAttribute("data-hires");
-  img.src = newurl;
   close.addEventListener("click", (e) => {
     elem.classList.add("min");
     elem.classList.remove("max");
@@ -193,17 +186,17 @@ function renderGif(gif) {
     titulo = "Sin título";
   }
   let card = "";
-  card += `<div class="gif-container min" data-hires="${gif.images.downsized_large.url}" id="${gif.id}">
+  card += `<div class="gif-container min" id="${gif.id}">
       <div class="close-max hidden"></div>
-      <img class="gif" src="${gif.images.downsized.url}" onclick='toggleMax("${gif.id}")' alt="${titulo}"/>
+      <img class="gif" src="${gif.images.original.webp}" onclick='toggleMax("${gif.id}")' alt="${titulo}"/>
       <div class="card-hover">
         <div class="datos">
           <p class="user">${user}</p>
           <p class="gif-title">${titulo}</p>
         </div>
         <div class="card-btns">
-          <img onclick='fav("${gif.id}","${gif.images.downsized.url}}","${gif.images.downsized_large.url}}","${user}","${titulo}")' class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img onclick='download("${gif.images.downsized_large.url}", "${titulo}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img onclick='fav("${gif.id}","${gif.images.original.webp}","${user}","${titulo}")' class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img onclick='download("${gif.images.original.webp}", "${titulo}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
           <img onclick='toggleMax("${gif.id}")' class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
@@ -214,7 +207,7 @@ function renderGif(gif) {
 /* Renderizar una grilla de gifs a partir de un array */
 function renderGrilla(data) {
   let grilla = "";
-  for (gif of data) {
+  for (let gif of data) {
     grilla += renderGif(gif);
   }
   return grilla;
@@ -236,7 +229,7 @@ async function doSearch(query) {
       const grilla = renderGrilla(data.data);
       hide("busqueda-vacia");
       unhide("rdo-busqueda");
-      if (offset == 0) {
+      if (offset === 0) {
         container.innerHTML = grilla;
       } else {
         container.innerHTML += grilla;
@@ -309,7 +302,7 @@ function autocomplete() {
         });
         lista.appendChild(container);
       }
-      if (query != "") {
+      if (query !== "") {
         icono.classList.remove("invisible");
         btn.classList.remove("fa-search");
         btn.classList.add("fa-times");
@@ -320,7 +313,7 @@ function autocomplete() {
       }
 
       const div = document.getElementsByClassName("search-div");
-      if (lista.childElementCount != 0) {
+      if (lista.childElementCount !== 0) {
         div[0].classList.remove("invisible");
       } else {
         div[0].classList.add("invisible");
