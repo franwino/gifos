@@ -386,6 +386,7 @@ p {
 /* Componente gif con datos */
 .gif-container {
   position: relative;
+  /* Maximizado */
 }
 
 .gif-container .gif {
@@ -484,7 +485,6 @@ p {
   background-image: url("../assets/close-modo-noct.svg");
 }
 
-/* Maximizado */
 @media screen and (min-width: 768px) {
   .grilla .gif-container {
     width: 260px;
@@ -931,7 +931,7 @@ p {
     background-image: url("../assets/button-slider-left-hover.svg");
   }
   .dark .slider:hover {
-    /* Cambiar por el asset correspondiente */
+    /* Se deberia cambiar por el asset correspondiente */
     background-image: url("../assets/button-slider-left-hover.svg");
   }
 }

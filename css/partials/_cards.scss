@@ -30,6 +30,7 @@
     padding: 8px 7px;
   }
 }
+
 /* Componente gif con datos */
 .gif-container {
   position: relative;
@@ -62,6 +63,7 @@
     }
   }
 
+  /* Maximizado */
   &.max {
     display: flex;
     flex-direction: column;
@@ -106,8 +108,6 @@
     }
   }
 }
-
-/* Maximizado */
 
 @media screen and (min-width: $desktop) {
   .grilla {

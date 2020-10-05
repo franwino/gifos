@@ -217,7 +217,7 @@ function copiar(texto) {
   el.select();
   document.execCommand("copy");
   document.body.removeChild(el);
-  alert("El link a su gifo se ha copiado al portapapeles!");
+  alert("El link a su GIFO se ha copiado al portapapeles!");
 }
 
 function timer() {
