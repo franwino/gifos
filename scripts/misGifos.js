@@ -195,7 +195,7 @@ async function subir() {
     const btnDw = document.getElementById("descargar-mi-gifo");
     btnDw.setAttribute(
       "onclick",
-      `download("${gif.images.original.webp}", "${gifSubido.title}")`
+      `download("${gifSubido.images.original.webp}", "${gifSubido.title}")`
     );
   } catch (error) {
     console.log("error:", error);

@@ -185,18 +185,24 @@ function renderGif(gif) {
   if (titulo === "") {
     titulo = "Sin título";
   }
+  let url;
+  if (gif.images.original.webp) {
+    url = gif.images.original.webp;
+  } else {
+    url = gif.images.downsized.url;
+  }
   let card = "";
   card += `<div class="gif-container min" id="${gif.id}">
       <div class="close-max hidden"></div>
-      <img class="gif" src="${gif.images.original.webp}" onclick='toggleMax("${gif.id}")' alt="${titulo}"/>
+      <img class="gif" src="${url}" onclick='toggleMax("${gif.id}")' alt="${titulo}"/>
       <div class="card-hover">
         <div class="datos">
           <p class="user">${user}</p>
           <p class="gif-title">${titulo}</p>
         </div>
         <div class="card-btns">
-          <img onclick='fav("${gif.id}","${gif.images.original.webp}","${user}","${titulo}")' class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
-          <img onclick='download("${gif.images.original.webp}", "${titulo}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
+          <img onclick='fav("${gif.id}","${url}","${user}","${titulo}")' class="btn-fav" src="assets/icon-fav-hover.svg" alt="Agregar a favoritos"/>
+          <img onclick='download("${url}", "${titulo}")' class="btn-download" src="assets/icon-download-hover.svg" alt="Descargar GIF"/>
           <img onclick='toggleMax("${gif.id}")' class="btn-max" src="assets/icon-max-hover.svg" alt="Maximizar"/>
         </div>
       </div>
