@@ -72,7 +72,7 @@
 }
 
 #autocomplete {
-  z-index: 20;
+  z-index: 10;
   background-color: var(--bg-color);
   border-radius: 27px;
 }
@@ -145,7 +145,7 @@
 @media screen and (min-width: 1000px) {
   .barra-busqueda {
     &.sticky {
-      z-index: 15;
+      z-index: 20;
       position: fixed;
       top: 25px;
       width: clamp(0px, 23.2vw, 334px);

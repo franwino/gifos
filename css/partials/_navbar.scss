@@ -3,7 +3,7 @@
 }
 
 #main-header {
-  z-index: 10;
+  z-index: 20;
   position: fixed;
   width: 100%;
   top: 0;
@@ -70,22 +70,22 @@
   display: none;
   width: 54px;
   height: 54px;
-  background-image: url("assets/button-crear-gifo.svg");
+  background-image: url("../assets/button-crear-gifo.svg");
   &:hover {
-    background-image: url("assets/CTA-crear-gifo-hover.svg");
+    background-image: url("../assets/CTA-crear-gifo-hover.svg");
     cursor: pointer;
   }
   &.active {
-    background-image: url("assets/CTA-crear-gifo-active.svg");
+    background-image: url("../assets/CTA-crear-gifo-active.svg");
   }
   .dark & {
-    background-image: url("assets/CTA-crear-gifo-modo-noc.svg");
+    background-image: url("../assets/CTA-crear-gifo-modo-noc.svg");
     &:hover {
-      background-image: url("assets/CTA-crear-gifo-hover-modo-noc.svg");
+      background-image: url("../assets/CTA-crear-gifo-hover-modo-noc.svg");
       cursor: pointer;
     }
     &.active {
-      background-image: url("assets/CTA-crear-gifo-active-modo-noc.svg");
+      background-image: url("../assets/CTA-crear-gifo-active-modo-noc.svg");
     }
   }
 }

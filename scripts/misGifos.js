@@ -1,21 +1,22 @@
 let misGifos;
-let arrayMisGifos = buscarCreados();
+let arrayMisGifos = [];
+buscarCreados();
 
-let dataMisGifos;
 /* Buscar por la API los gifs creados en funcion de los ids */
-function buscarCreados() {
-  let array = [];
-  misGifos = getLocal("mis");
-  const stringCreados = misGifos.join();
-  const url = `https://api.giphy.com/v1/gifs?api_key=${apikey}&ids=${stringCreados}`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      for (const gif of data.data) {
-        array.push(gif);
-      }
-    });
-  return array;
+async function buscarCreados() {
+  try {
+    arrayMisGifos = [];
+    misGifos = getLocal("mis");
+    const stringCreados = misGifos.join();
+    const url = `https://api.giphy.com/v1/gifs?api_key=${apikey}&ids=${stringCreados}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    for (const gif of data.data) {
+      arrayMisGifos.push(gif);
+    }
+  } catch (error) {
+    console.log("error:", error);
+  }
 }
 
 /* Mostrar mis GIFOS */
@@ -32,7 +33,6 @@ function renderMisGifos() {
     unhide("misGifos-vacia");
   }
 }
-
 function masGifos() {
   const grillaCreados = document.getElementById("rdo-mis-gifos");
   let n = Math.min(arrayMisGifos.length - gifShown, 12);
@@ -87,11 +87,12 @@ const gifListo = document.getElementById("gif-listo");
 const contadorText = document.getElementById("contador");
 const btnRepetir = document.getElementById("repetir");
 
-let streamCam;
-let recorder;
-let form = new FormData();
+let streamCam,
+  recorder,
+  form = new FormData();
 
-let hour = "00",
+let cronometro,
+  hour = "00",
   min = "00",
   sec = "00";
 
@@ -99,19 +100,21 @@ let hour = "00",
 function crearGifo() {
   btnCrear.textContent = "COMENZAR";
   btnCrear.setAttribute("onclick", "comenzar()");
-  hide("video");
-  hide("msj-2");
-  hide("msj-crear-1");
-  hide("msj-crear-2");
-  hide("contador");
-  hide("repetir");
-  hide("gif-listo");
-  hide("contenedor-gif-creado");
-  unhide("msj-1");
-  unhide("btnPasosCrear");
+  hide(
+    "video",
+    "msj-2",
+    "msj-crear-1",
+    "msj-crear-2",
+    "contador",
+    "repetir",
+    "gif-listo",
+    "contenedor-gif-creado"
+  );
+  unhide("msj-1", "btnPasosCrear");
   pasoActivo(0);
 }
 
+/* Solicito permiso para utilizar la camara */
 function getStreamAndRecord() {
   navigator.mediaDevices
     .getUserMedia({
@@ -122,8 +125,7 @@ function getStreamAndRecord() {
     })
     .then(function (stream) {
       streamCam = stream;
-      unhide("contenedor-gif-creado");
-      unhide("video");
+      unhide("contenedor-gif-creado", "video");
       hide("msj-2");
       video.srcObject = stream;
       video.play();
@@ -140,13 +142,11 @@ function getStreamAndRecord() {
 
 function comenzar() {
   pasoActivo(1);
-  hide(btnCrear.id);
-  hide("msj-1");
+  hide(btnCrear.id, "msj-1");
   unhide("msj-2");
   getStreamAndRecord();
 }
 
-let cronometro;
 function grabar() {
   btnCrear.setAttribute("onclick", "finalizar()");
   btnCrear.innerText = "finalizar";
@@ -173,40 +173,35 @@ function finalizar() {
   btnCrear.setAttribute("onclick", "subir()");
 }
 
-function subir() {
-  hide(btnRepetir.id);
-  hide(btnCrear.id);
+async function subir() {
+  hide(btnRepetir.id, btnCrear.id);
   pasoActivo(3);
   unhide("msj-crear-1");
   const url = "https://upload.giphy.com/v1/gifs";
-  fetch(url, {
-    method: "POST",
-    body: form,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      misGifos.push(data.data.id);
-      setLocal("mis", misGifos);
-      arrayMisGifos = buscarCreados();
-      hide("msj-crear-1");
-      unhide("msj-crear-2");
-    })
-    .then(() => {
-      const gifSubido = arrayMisGifos[arrayMisGifos.length - 1];
-      console.log("gif: " + gifSubido);
-      const btnLink = document.getElementById("link-mi-gifo");
-      btnLink.setAttribute("onclick", `copiar("${gifSubido.url}")`);
-      const btnDw = document.getElementById("descargar-mi-gifo");
-      btnDw.setAttribute(
-        "onclick",
-        `download("${gifSubido.images.downsized_large.url}", "${gifSubido.title}")`
-      );
-    });
+  try {
+    const response = await fetch(url, { method: "POST", body: form });
+    const data = await response.json();
+    misGifos.push(data.data.id);
+    setLocal("mis", misGifos);
+    await buscarCreados();
+    hide("msj-crear-1");
+    unhide("msj-crear-2");
+    const gifSubido = arrayMisGifos[arrayMisGifos.length - 1];
+    console.log("gif: " + gifSubido);
+    const btnLink = document.getElementById("link-mi-gifo");
+    btnLink.setAttribute("onclick", `copiar("${gifSubido.url}")`);
+    const btnDw = document.getElementById("descargar-mi-gifo");
+    btnDw.setAttribute(
+      "onclick",
+      `download("${gifSubido.images.downsized_large.url}", "${gifSubido.title}")`
+    );
+  } catch (error) {
+    console.log("error:", error);
+  }
 }
 
 function repetir() {
-  hide(btnRepetir.id);
-  hide(gifListo.id);
+  hide(btnRepetir.id, gifListo.id);
   getStreamAndRecord();
 }
 

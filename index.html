@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GIFOS</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <!-- <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500;700;900&display=swap');
-      </style> -->
+    <script
+    src="https://kit.fontawesome.com/2e0e0eb40e.js"
+    crossorigin="anonymous"
+  ></script>
   </head>
 
   <body>
@@ -80,14 +80,14 @@
         <!-- Barra de busqueda -->
         <div class="barra-busqueda" id="barra-busqueda">
           <div class="input-busqueda">
-            <i class="invisible lupa-aux far fa-search" id="icono-lupa"></i>
+            <i class="invisible lupa-aux fas fa-search" id="icono-lupa"></i>
             <input
               type="text"
               name="search"
               id="search"
               placeholder="Busca GIFOS y más"
             />
-            <i class="far fa-search" id="buscarborrar"></i>
+            <i class="fas fa-search" id="buscarborrar"></i>
           </div>
           <div class="search-div invisible"></div>
           <div id="autocomplete"></div>
@@ -137,13 +137,13 @@
 
       <!-- Mis Gifos -->
       <section id="sec-misGifos" class="hidden tab">
-        <img src="assets/icon-favoritos.svg" alt="Favoritos" />
+        <img src="assets/icon-mis-gifos.svg" alt="Mis Gifos" />
         <div class="secc-header">Mis GIFOS</div>
         <div class="grilla" id="rdo-mis-gifos"></div>
         <div class="contenido-vacio hidden" id="misGifos-vacia">
           <img
-            src="assets/icon-fav-sin-contenido.svg"
-            alt="No se encontraron favoritos"
+            src="assets/icon-mis-gifos-sin-contenido.svg"
+            alt="No se encontraron Gifos creados"
           />
           <h2>¡Anímate a crear tu primer GIFO!</h2>
         </div>
@@ -276,8 +276,9 @@
       <p class="copyright">&copy; GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <div class="barra-inicio-fin"></div>
-    <script src="scripts/main.js"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="scripts/general.js"></script>
+    <script src="scripts/main.js"></script>
     <script src="scripts/misGifos.js"></script>
   </body>
 </html>

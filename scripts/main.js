@@ -8,38 +8,9 @@ let gifShown = 0;
 let trendShow = 0;
 trendingGifs();
 
-/* Mostrar/Ocultar elementos del DOM por id */
-function hide(id) {
-  const el = document.getElementById(id);
-  el.classList.add("hidden");
-}
-function unhide(id) {
-  const el = document.getElementById(id);
-  el.classList.remove("hidden");
-}
-
-/* Quitar clase active de todos los elementos */
-function quitarActive() {
-  const active = document.querySelectorAll(".active");
-  for (elem of active) {
-    if (elem.classList.contains("active")) {
-      elem.classList.remove("active");
-      break;
-    }
-  }
-}
-/* Hacer active solo un elemento */
-function makeActive(elem) {
-  quitarActive();
-  elem.classList.add("active");
-}
 /* Mostrar solo la seccion elegida */
 function selSec(id) {
-  hide("inicio");
-  hide("seccion-busqueda");
-  hide("sec-misGifos");
-  hide("sec-favs");
-  hide("sec-crear");
+  hide("inicio", "seccion-busqueda", "sec-misGifos", "sec-favs", "sec-crear");
   unhide("sec-trending");
   if (id == "sec-crear") {
     hide("sec-trending");
@@ -47,31 +18,6 @@ function selSec(id) {
   unhide(id);
 }
 
-/* Obtener coordenadas de un elemento */
-function getPos(el) {
-  var xPos = 0;
-  var yPos = 0;
-  while (el) {
-    if (el.tagName == "BODY") {
-      // deal with browser quirks with body/window/document and page scroll
-      var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-      var yScroll = el.scrollTop || document.documentElement.scrollTop;
-
-      xPos += el.offsetLeft - xScroll + el.clientLeft;
-      yPos += el.offsetTop - yScroll + el.clientTop;
-    } else {
-      // for all other non-BODY elements
-      xPos += el.offsetLeft - el.scrollLeft + el.clientLeft;
-      yPos += el.offsetTop - el.scrollTop + el.clientTop;
-    }
-
-    el = el.offsetParent;
-  }
-  return {
-    x: xPos,
-    y: yPos,
-  };
-}
 /* Menu scroll - Sombre y searchbar sticky */
 function stickySearch() {
   const searchbar = document.getElementById("barra-busqueda");
@@ -109,47 +55,6 @@ function menuHamburguesa() {
   }
 }
 
-/* Modo Nocturno */
-function modoNocturno() {
-  const btn = document.getElementById("btnDarkMode");
-  let darkMode = false;
-  function setColor(vble, color) {
-    document.documentElement.style.setProperty(vble, color);
-  }
-  const body = document.getElementsByTagName("body")[0];
-  function toggleMode(mode) {
-    if (mode == false) {
-      setColor("--main-color", "#ffffff");
-      setColor("--main-color-bg", "#000000");
-      setColor("--main-color-2", "#ffffff");
-      setColor("--bg-color", "#37383C");
-      setColor("--bg-trending", "#222326");
-      btn.textContent = "Modo Diurno";
-      body.classList.add("dark");
-      newMode = true;
-    } else {
-      setColor("--main-color", "#572ee5");
-      setColor("--main-color-bg", "#572ee5");
-      setColor("--main-color-2", "#000000");
-      setColor("--bg-color", "#ffffff");
-      setColor("--bg-trending", "#F3F5F8");
-      btn.textContent = "Modo Nocturno";
-      body.classList.remove("dark");
-      newMode = false;
-    }
-    return newMode;
-  }
-  if (localStorage.getItem("dark") != null) {
-    darkMode = JSON.parse(localStorage.getItem("dark"));
-  }
-  darkMode = toggleMode(!darkMode);
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    darkMode = toggleMode(darkMode);
-    localStorage.setItem("dark", darkMode);
-  });
-}
-
 /* Botones del menu */
 function menu(elem) {
   let op;
@@ -159,10 +64,12 @@ function menu(elem) {
       break;
     case "btnFav":
       op = "sec-favs";
+      hide("ver-mas-fav");
       renderFavs();
       break;
     case "btnMis":
       op = "sec-misGifos";
+      hide("ver-mas-misGifos");
       renderMisGifos();
       break;
     case "btnCrear":
@@ -180,31 +87,6 @@ function menu(elem) {
     menuHamburguesa();
   }
   window.scrollTo(0, 0);
-}
-
-/* buscar index de gif en array */
-function searchById(id, array) {
-  let index = -1;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].id === id) {
-      index = i;
-      break;
-    }
-  }
-  return index;
-}
-
-/* Traer de localStorage por key*/
-function getLocal(id) {
-  let items = [];
-  if (localStorage.getItem(id) != null) {
-    items = JSON.parse(localStorage.getItem(id));
-  }
-  return items;
-}
-/* Guardar array en localStorage */
-function setLocal(id, array) {
-  localStorage.setItem(id, JSON.stringify(array));
 }
 
 /* Mostrar favoritos */
@@ -281,13 +163,6 @@ function borrarFav(id) {
   }
 }
 
-/* Descargar Gif */
-function download(url, title) {
-  fetch(url)
-    .then((gif) => gif.blob())
-    .then((file) => invokeSaveAsDialog(file, title + ".gif"));
-}
-
 /* Maximizar GIF */
 function toggleMax(id) {
   const elem = document.getElementById(id);
@@ -346,41 +221,42 @@ function renderGrilla(data) {
 }
 
 /* Hacer la búsqueda y llamar a renderizarla */
-function doSearch(query) {
-  const limit = 12;
-  let offset = gifShown;
-  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apikey}&q=${query}&limit=${limit}&offset=${offset}&rating=pg-13&lang=es`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      unhide("seccion-busqueda");
-      const header = document.getElementById("title-busq");
-      header.textContent = query;
-      const container = document.getElementById("rdo-busqueda");
-      if (data.pagination.total_count !== 0) {
-        const grilla = renderGrilla(data.data);
-        hide("busqueda-vacia");
-        unhide("rdo-busqueda");
-        if (offset == 0) {
-          container.innerHTML = grilla;
-        } else {
-          container.innerHTML += grilla;
-        }
-        const btn = document.getElementById("ver-mas-busqueda");
-        gifShown += limit;
-        if (gifShown > data.pagination.total_count) {
-          btn.classList.add("hidden");
-        } else {
-          btn.classList.remove("hidden");
-        }
+async function doSearch(query) {
+  try {
+    const limit = 12;
+    let offset = gifShown;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${apikey}&q=${query}&limit=${limit}&offset=${offset}&rating=pg-13&lang=es`;
+    const response = await fetch(url);
+    const data = await response.json();
+    unhide("seccion-busqueda");
+    const header = document.getElementById("title-busq");
+    header.textContent = query;
+    const container = document.getElementById("rdo-busqueda");
+    if (data.pagination.total_count !== 0) {
+      const grilla = renderGrilla(data.data);
+      hide("busqueda-vacia");
+      unhide("rdo-busqueda");
+      if (offset == 0) {
+        container.innerHTML = grilla;
       } else {
-        hide("rdo-busqueda");
-        unhide("busqueda-vacia");
-        hide("ver-mas-busqueda");
+        container.innerHTML += grilla;
       }
-    })
-    .catch((error) => console.log("error:", error));
+      const btn = document.getElementById("ver-mas-busqueda");
+      gifShown += limit;
+      if (gifShown > data.pagination.total_count) {
+        btn.classList.add("hidden");
+      } else {
+        btn.classList.remove("hidden");
+      }
+    } else {
+      hide("rdo-busqueda", "ver-mas-busqueda");
+      unhide("busqueda-vacia");
+    }
+  } catch (error) {
+    console.log("error:", error);
+  }
 }
+
 /* Ver mas resultados de la busqueda */
 function masSearch() {
   const query = document.getElementById("title-busq").textContent;
@@ -407,50 +283,51 @@ function autocomplete() {
     input.value = "";
     limpiarGrilla();
   }
-  function request(query) {
-    const url =
-      "https://api.giphy.com/v1/gifs/search/tags?api_key=" +
-      apikey +
-      "&q=" +
-      query;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        let n = Math.min(data.data.length, 4);
-        lista.innerHTML = "";
-        for (let i = 0; i < n; i++) {
-          const img = document.createElement("i");
-          img.className = "lupa-aux far fa-search";
-          const el = document.createElement("p");
-          el.innerText = data.data[i].name;
-          const container = document.createElement("div");
-          container.className = "autocomplete-field";
-          container.appendChild(img);
-          container.appendChild(el);
-          container.addEventListener("click", (e) => {
-            input.value = data.data[i].name;
-            newSearch(input);
-          });
-          lista.appendChild(container);
-        }
-        if (query != "") {
-          icono.classList.remove("invisible");
-          btn.classList.remove("fa-search");
-          btn.classList.add("fa-times");
-        } else {
-          icono.classList.add("invisible");
-          btn.classList.add("fa-search");
-          btn.classList.remove("fa-times");
-        }
+  async function request(query) {
+    try {
+      const url =
+        "https://api.giphy.com/v1/gifs/search/tags?api_key=" +
+        apikey +
+        "&q=" +
+        query;
+      const response = await fetch(url);
+      const data = await response.json();
+      let n = Math.min(data.data.length, 4);
+      lista.innerHTML = "";
+      for (let i = 0; i < n; i++) {
+        const img = document.createElement("i");
+        img.className = "lupa-aux fas fa-search";
+        const el = document.createElement("p");
+        el.innerText = data.data[i].name;
+        const container = document.createElement("div");
+        container.className = "autocomplete-field";
+        container.appendChild(img);
+        container.appendChild(el);
+        container.addEventListener("click", (e) => {
+          input.value = data.data[i].name;
+          newSearch(input);
+        });
+        lista.appendChild(container);
+      }
+      if (query != "") {
+        icono.classList.remove("invisible");
+        btn.classList.remove("fa-search");
+        btn.classList.add("fa-times");
+      } else {
+        icono.classList.add("invisible");
+        btn.classList.add("fa-search");
+        btn.classList.remove("fa-times");
+      }
 
-        const div = document.getElementsByClassName("search-div");
-        if (lista.childElementCount != 0) {
-          div[0].classList.remove("invisible");
-        } else {
-          div[0].classList.add("invisible");
-        }
-      })
-      .catch((error) => console.log("error:", error));
+      const div = document.getElementsByClassName("search-div");
+      if (lista.childElementCount != 0) {
+        div[0].classList.remove("invisible");
+      } else {
+        div[0].classList.add("invisible");
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
   }
 
   icono.addEventListener("click", (e) => {
@@ -471,19 +348,23 @@ function autocomplete() {
   });
 }
 
+/* Buscar al hacer click en un tema trending */
 function trendSearch(query) {
   gifShown = 0;
   doSearch(query);
 }
 
 /* Trending Searchs */
-function trendingSearchs() {
+async function trendingSearchs() {
   const url = "https://api.giphy.com/v1/trending/searches?api_key=" + apikey;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => createElement(data))
-    .catch((error) => console.log("error:", error));
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    createElement(data);
+  } catch (error) {
+    console.log("error:", error);
+  }
 
   function createElement(data) {
     const n = 5;
@@ -499,20 +380,21 @@ function trendingSearchs() {
 }
 
 /* Trending GIFs */
-function trendingGifs() {
-  const limit = 3;
-  const url = `https://api.giphy.com/v1/gifs/trending?api_key=${apikey}&limit=${limit}&offset=${trendShow}`;
-
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      const grilla = renderGrilla(data.data);
-      const container = document.getElementById("trending-gifs");
-      container.innerHTML = grilla;
-    })
-    .catch((error) => console.log("error:", error));
+async function trendingGifs() {
+  try {
+    const limit = 3;
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${apikey}&limit=${limit}&offset=${trendShow}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const grilla = renderGrilla(data.data);
+    const container = document.getElementById("trending-gifs");
+    container.innerHTML = grilla;
+  } catch (error) {
+    console.log("error:", error);
+  }
 }
 
+/* Funcionalidad sliders de trending */
 function trendSlider(offset) {
   if (trendShow + offset >= 0) {
     trendShow += offset;
